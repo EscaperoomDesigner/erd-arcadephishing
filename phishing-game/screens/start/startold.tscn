@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2mpgwpctowjs"]
+
+[ext_resource type="Shader" uid="uid://dfy8ndoqbdx4s" path="res://resources/crt_shader.gdshader" id="1_wpsv7"]
+[ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="2_d0msr"]
+[ext_resource type="Script" uid="uid://sdn83jw2utbj" path="res://screens/start/startold.gd" id="3_d40ui"]
+[ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="4_1rwae"]
+[ext_resource type="Texture2D" uid="uid://bftp763bqfqq2" path="res://assets/images/menu/name.png" id="5_vtj05"]
+[ext_resource type="Texture2D" uid="uid://bsifi0itot1b0" path="res://assets/images/menu/p1.png" id="6_dt8u8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ut5s6"]
+shader = ExtResource("1_wpsv7")
+shader_parameter/mask_type = 1
+shader_parameter/curve = 0.0
+shader_parameter/sharpness = 0.666667
+shader_parameter/color_offset = 0.0
+shader_parameter/mask_brightness = 1.0
+shader_parameter/scanline_brightness = 1.0
+shader_parameter/min_scanline_thickness = 0.5
+shader_parameter/aspect = 0.75
+shader_parameter/wobble_strength = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ut5s6"]
+viewport_path = NodePath("ShaderRect/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4y736"]
+resource_local_to_scene = true
+shader = ExtResource("1_wpsv7")
+shader_parameter/tex = SubResource("ViewportTexture_ut5s6")
+shader_parameter/mask_type = 1
+shader_parameter/curve = 0.0
+shader_parameter/sharpness = 0.666667
+shader_parameter/color_offset = -0.5
+shader_parameter/mask_brightness = 1.0
+shader_parameter/scanline_brightness = 1.0
+shader_parameter/min_scanline_thickness = 0.664
+shader_parameter/aspect = 1.0
+shader_parameter/wobble_strength = 0.0
+
+[node name="Start" type="Control"]
+material = SubResource("ShaderMaterial_ut5s6")
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_d0msr")
+script = ExtResource("3_d40ui")
+
+[node name="ShaderRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4y736")
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="ShaderRect"]
+size = Vector2i(640, 360)
+
+[node name="BackgroundRect" type="TextureRect" parent="ShaderRect/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_1rwae")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ShaderRect/SubViewport/BackgroundRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShaderRect/SubViewport/BackgroundRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="Title" type="TextureRect" parent="ShaderRect/SubViewport/BackgroundRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(411, 120)
+layout_mode = 2
+texture = ExtResource("5_vtj05")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShaderRect/SubViewport/BackgroundRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="ShaderRect/SubViewport/BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_d0msr")
+text = "PRESS tO PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureRect" parent="ShaderRect/SubViewport/BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+texture = ExtResource("6_dt8u8")
+expand_mode = 1

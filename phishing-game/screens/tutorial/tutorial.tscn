@@ -1,0 +1,136 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0ckh3uehbwwd"]
+
+[ext_resource type="Script" uid="uid://deiabefumu06i" path="res://screens/tutorial/tutorial.gd" id="1_xl6kk"]
+[ext_resource type="Texture2D" uid="uid://bsc2sp5m667k2" path="res://assets/images/tutorial/tut.png" id="2_djnnt"]
+[ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="4_i3p7n"]
+
+[node name="Tutorial" type="Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_i3p7n")
+script = ExtResource("1_xl6kk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.917647, 0.901961, 0.866667, 1)
+
+[node name="BackgroundRect" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(640, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_djnnt")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TimerLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "15"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "DOEL"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "WELKOM BIJ DE PHISHING SIMULATOR"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "TIJDENS HET SPEL ZIE JE
+VERSCHILLENDE E-MAILS"
+
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "DIT KUNNEN NORMALE E-MAILS OF
+PHISHINGMAILS ZIJN"
+
+[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "IDENTIFICEER ZE EN MAAK DE 
+JUISTE KEUZE MET DE
+JOYSTICK EN KNOP"
+
+[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "VOOR ELKE FOUT VERLIES 
+JE 1 HART"
+
+[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "JE HEBT 2 MINUTEN OM 
+ZOVEEL MOGELIJK E-MAILS
+TE IDENTIFICEREN"
+
+[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "SUCCESS! DRUK D OM VERDER TE GAAN!"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "PHISHING
+SIGNALEN"
