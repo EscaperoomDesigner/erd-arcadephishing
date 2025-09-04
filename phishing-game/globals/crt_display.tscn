@@ -10,17 +10,18 @@ viewport_path = NodePath("ShaderRect/SubViewport")
 resource_local_to_scene = true
 shader = ExtResource("1_gg3jx")
 shader_parameter/tex = SubResource("ViewportTexture_g0m4y")
-shader_parameter/mask_type = 1
+shader_parameter/mask_type = 2
 shader_parameter/curve = 0.0
 shader_parameter/sharpness = 0.666667
 shader_parameter/color_offset = -0.3
-shader_parameter/mask_brightness = 0.9
-shader_parameter/scanline_brightness = 0.9
-shader_parameter/min_scanline_thickness = 0.25
+shader_parameter/mask_brightness = 1.0
+shader_parameter/scanline_brightness = 1.0
+shader_parameter/min_scanline_thickness = 0.5
 shader_parameter/aspect = 0.75
 shader_parameter/wobble_strength = 0.05
 
 [node name="CRTDisplay" type="Control"]
+custom_minimum_size = Vector2(640, 512)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +32,7 @@ script = ExtResource("1_g0m4y")
 
 [node name="ShaderRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_g0m4y")
-custom_minimum_size = Vector2(640, 360)
+custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="ShaderRect"]
-size = Vector2i(640, 360)
+size = Vector2i(640, 512)
 
 [node name="Fade" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -54,7 +55,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="UnfilteredDisplay" type="Control" parent="."]
-custom_minimum_size = Vector2(443, 317)
+custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

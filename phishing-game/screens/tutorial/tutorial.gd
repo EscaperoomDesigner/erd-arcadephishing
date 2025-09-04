@@ -4,7 +4,7 @@ const MAIN_PACKED_SCENE: PackedScene = preload("uid://75uq0a777qf6")
 const PHISHING_DISPLAY_PACKED_SCENE: PackedScene = preload("uid://dtggel806lv3q")
 
 @export var min_display_time := 3.0     # seconds
-@export var max_display_time := 5.0    # seconds
+@export var max_display_time := 15.0    # seconds
 
 @onready var timer_label: Label = %TimerLabel
 

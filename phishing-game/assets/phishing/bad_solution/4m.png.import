@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://boatplwa74lv3"
-path="res://.godot/imported/4m.png-4c36b54e1547264408034a51c8b9178b.ctex"
+path="res://.godot/imported/4m.png-1af31a424831b3126d0461244569b04a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/phishing/bad/4m.png"
-dest_files=["res://.godot/imported/4m.png-4c36b54e1547264408034a51c8b9178b.ctex"]
+source_file="res://assets/phishing/bad_solution/4m.png"
+dest_files=["res://.godot/imported/4m.png-1af31a424831b3126d0461244569b04a.ctex"]
 
 [params]
 

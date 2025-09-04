@@ -5,21 +5,23 @@
 [ext_resource type="Texture2D" uid="uid://cio125bv6if2g" path="res://assets/phishing/good/15.png" id="3_1k4i0"]
 
 [node name="PhishingDisplay" type="TextureRect"]
-custom_minimum_size = Vector2(608, 272)
+custom_minimum_size = Vector2(540, 410)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -304.0
-offset_top = -8.0
-offset_right = 304.0
-offset_bottom = 264.0
+offset_left = -312.0
+offset_top = 24.0
+offset_right = 228.0
+offset_bottom = 434.0
 grow_horizontal = 2
-pivot_offset = Vector2(608, 272)
+pivot_offset = Vector2(540, 410)
 size_flags_horizontal = 4
 texture = ExtResource("1_iod7u")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("2_0887g")
+answer_cooldown = 1.0
+scale_duration = 0.5
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,11 +30,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 28
 theme_override_constants/margin_bottom = 8
 
 [node name="PhishingContent" type="TextureRect" parent="MarginContainer"]
-custom_minimum_size = Vector2(340, 180)
+custom_minimum_size = Vector2(520, 402)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("3_1k4i0")

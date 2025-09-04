@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://dpd5ojp1sq08r" path="res://screens/start/start.gd" id="1_1g8oq"]
 [ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="3_nvj33"]
 [ext_resource type="Texture2D" uid="uid://bftp763bqfqq2" path="res://assets/images/menu/name.png" id="4_0el08"]
-[ext_resource type="Texture2D" uid="uid://bsifi0itot1b0" path="res://assets/images/menu/p1.png" id="5_4y736"]
+[ext_resource type="Texture2D" uid="uid://d2sdra0wmctqf" path="res://assets/images/menu/button_start1.png" id="5_0el08"]
 
 [node name="Start" type="Control"]
+custom_minimum_size = Vector2(640, 512)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_1g8oq")
 
 [node name="BackgroundRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,6 +49,8 @@ theme_override_constants/separation = 64
 unique_name_in_owner = true
 custom_minimum_size = Vector2(411, 120)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("4_0el08")
 expand_mode = 1
 
@@ -57,7 +61,7 @@ theme_override_constants/separation = 16
 [node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_0w6la")
-text = "PRESS tO PLAY"
+text = "PRESS ANY BUTTON TO PLAY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -68,5 +72,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 0
-texture = ExtResource("5_4y736")
-expand_mode = 1
+texture = ExtResource("5_0el08")

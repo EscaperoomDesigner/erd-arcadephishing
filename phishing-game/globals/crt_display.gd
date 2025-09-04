@@ -14,8 +14,7 @@ func _ready():
 		self.owner = null
 	fade.visible = true
 	fade.modulate.a = 0.0
-	
-	# Automatically move current scene root into SubViewport
+
 	_move_current_scene_to_subviewport()
 
 
@@ -25,7 +24,6 @@ func _move_current_scene_to_subviewport():
 		# Defer the reparenting to avoid "Parent node is busy" error
 		current_scene.get_parent().call_deferred("remove_child", current_scene)
 		subviewport.call_deferred("add_child", current_scene)
-		# Ensure it isn’t freed on scene change
 		current_scene.owner = null
 
 
@@ -66,7 +64,7 @@ func fade_to_packed(
 	# Fade back in
 	t.tween_property(fade, "modulate:a", 0.0, fade_time)
 
-	# Unlock
+	# Unlock and listen for input
 	t.tween_callback(func():
 		_transitioning = false
 	)

@@ -18,13 +18,14 @@ config/icon="res://icon.svg"
 [autoload]
 
 CrtDisplay="*res://globals/crt_display.tscn"
+GameManager="*res://globals/game_manager.gd"
 
 [display]
 
 window/size/viewport_width=640
-window/size/viewport_height=360
-window/size/window_width_override=1920
-window/size/window_height_override=1080
+window/size/viewport_height=512
+window/size/window_width_override=1280
+window/size/window_height_override=1024
 window/stretch/mode="canvas_items"
 
 [input]
@@ -47,4 +48,9 @@ return={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+2d/size/window_height_override=1024
+2d/size/window_width_override=1280
+2d/stretch/mode="canvas_items"
+2d/size/viewport_height=512
