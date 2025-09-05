@@ -1,18 +1,13 @@
 extends Control
 
-
-const END_PACKED_SCENE: PackedScene = preload("uid://bomsy4dsoap7a")
-
-
 @onready var timer_label: Label = %TimerLabel
+@onready var score_label: Label = %ScoreLabel
 @onready var heart_1: TextureRect = %Heart1
 @onready var heart_2: TextureRect = %Heart2
 @onready var heart_3: TextureRect = %Heart3
 
 var full_heart_texture: Texture2D = preload("../../assets/images/game/heart.png")
 var empty_heart_texture: Texture2D = preload("../../assets/images/game/heart_empty.png")
-
-
 var game_time := 123.0  # total game time in seconds
 var elapsed := 0.0
 
@@ -20,9 +15,13 @@ var elapsed := 0.0
 func _ready():
 	# Start game loop
 	elapsed = 0
+	score_label.text = "0"
 	GameManager.game_running = true
 	GameManager.life_lost.connect(_on_life_lost)
 	GameManager.game_over.connect(_on_game_over)
+	GameManager.score_changed.connect(_on_score_changed)
+
+
 
 func _process(delta):
 	if not GameManager.game_running:
@@ -41,9 +40,8 @@ func _process(delta):
 
 
 func end_game():
-	print("game over unlucky!")
 	GameManager.game_running = false
-	CrtDisplay.fade_to_packed(END_PACKED_SCENE, 1.05)
+	print("game over unlucky!")
 
 
 func _on_life_lost(current_lives: int):
@@ -54,3 +52,7 @@ func _on_life_lost(current_lives: int):
 
 func _on_game_over():
 	end_game()
+
+
+func _on_score_changed(new_score: int):
+	score_label.text = str(new_score)

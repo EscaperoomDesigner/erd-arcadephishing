@@ -9,7 +9,6 @@ extends TextureRect
 var images: Array = []
 var bad_solutions: Dictionary = {}
 var current_image
-var score: int = 0
 var elapsed: float = 0.0
 var last_answer_time: float = -999.0
 var is_busy: bool = false
@@ -56,10 +55,14 @@ func _process(delta):
 	
 	elapsed += delta
 	if elapsed - last_answer_time < answer_cooldown: return
-	if is_busy: return  # ignore input while showing solution
+	
+	if is_busy || GameManager.input_lock: 
+		return  # ignore input while showing solution
 
-	if Input.is_action_just_pressed("phishing_yes"): _check_answer(true)
-	elif Input.is_action_just_pressed("phishing_no"): _check_answer(false)
+	if Input.is_action_just_pressed("phishing_yes"): 
+		_check_answer(true)
+	elif Input.is_action_just_pressed("phishing_no"): 
+		_check_answer(false)
 
 
 func _show_next_image():
@@ -68,11 +71,11 @@ func _show_next_image():
 	if images.is_empty(): 
 		return
 
-	current_image = images.pop_front()
-	content.texture = load(current_image.path)
-	
 	# Block input while animating in
 	is_busy = true
+	current_image = images.pop_front()
+	content.texture = load(current_image.path)
+
 	scale = Vector2.ZERO
 	pivot_offset = size
 	var t = create_tween()
@@ -84,31 +87,62 @@ func _show_next_image():
 
 func _check_answer(ans: bool):
 	last_answer_time = elapsed
+
 	if ans == current_image.is_phish:
-		score += 1
+		GameManager.add_score(1)
 		_animate_out(_show_next_image)
 		print("goed")
 	else:
-		# Only decrement lives for wrong answers
+		# Wrong answer: decrement lives
 		GameManager.lose_life()
 		print("fout")
+
+		# Check if we are on the last life
+		if GameManager.lives <= 0:
+			if current_image.is_phish and bad_solutions.has(current_image.id):
+				# Show solution first, then fade to end
+				_show_solution(current_image.id, true)
+			else:
+				# No solution, just fade to end
+				_fade_to_end()
+			return  # Stop further logic
+
+		# Not last life
 		if current_image.is_phish and bad_solutions.has(current_image.id):
 			_show_solution(current_image.id)
 		else:
 			_animate_out(_show_next_image)
 
 
+func _show_solution(id: String, fade_to_end := false):
+	if not bad_solutions.has(id):
+		return
+
+	is_busy = true
+	content.texture = load(bad_solutions[id])
+
+	# Wait while showing solution
+	await get_tree().create_timer(solution_time).timeout
+
+	is_busy = false
+
+	if fade_to_end:
+		_fade_to_end()
+	else:
+		_animate_out(_show_next_image)
 
 
-func _show_solution(id: String):
-	if bad_solutions.has(id):
-		is_busy = true
-		content.texture = load(bad_solutions[id])
-		await get_tree().create_timer(solution_time).timeout
+
+func _fade_to_end():
+	is_busy = true
+	pivot_offset = Vector2(size.x, 0)
+	var t = create_tween()
+	t.tween_property(self, "scale", Vector2.ZERO, scale_duration)
+	t.tween_callback(func():
 		is_busy = false
-		if GameManager.lives < 1:
-			GameManager.solution_finished()
-	_animate_out(_show_next_image)
+		GameManager.game_running = false
+		CrtDisplay.fade_to_packed(GameManager.END_PACKED_SCENE)
+	)
 
 
 

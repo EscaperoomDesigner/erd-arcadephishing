@@ -1,6 +1,5 @@
 extends Control
 
-const TUTORIAL_PACKED_SCENE: PackedScene = preload("uid://b0ckh3uehbwwd")
 
 @export var title_up_down_speed: float = 2.5
 @export var title_up_down_distance: int = 10
@@ -43,4 +42,6 @@ func _start_transition():
 	waiting_for_crt = true
 
 	# Call CRT Global fade
-	CrtDisplay.fade_to_packed(TUTORIAL_PACKED_SCENE)
+	CrtDisplay.fade_to_packed(GameManager.TUTORIAL_PACKED_SCENE)
+	
+	GameManager.reset_game()
