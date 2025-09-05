@@ -12,13 +12,12 @@ const MAIN_PACKED_SCENE: PackedScene = preload("uid://75uq0a777qf6")
 const PHISHING_DISPLAY_PACKED_SCENE: PackedScene = preload("uid://dtggel806lv3q")
 const END_PACKED_SCENE: PackedScene = preload("uid://bomsy4dsoap7a")
 
-
-
 var lives: int = 3
 var score: int = 0
 var game_running: bool = false
 var pending_game_over: bool = false 
 var input_lock: bool = false
+var player_name: String = ""
 
 func lose_life(showing_solution: bool = false):
 	lives -= 1

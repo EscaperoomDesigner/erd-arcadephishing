@@ -1,10 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bomsy4dsoap7a"]
+[gd_scene load_steps=9 format=3 uid="uid://bomsy4dsoap7a"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_snkly"]
 [ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="1_xa3jk"]
 [ext_resource type="Script" uid="uid://dxkwg6cl0y6pf" path="res://screens/end/end.gd" id="2_gg3g2"]
+[ext_resource type="Shader" uid="uid://clx8s1ify0xdj" path="res://screens/end/background.gdshader" id="3_d82el"]
+[ext_resource type="Texture2D" uid="uid://ckqfhy304qqo4" path="res://assets/images/end/title.png" id="4_don5d"]
+[ext_resource type="Texture2D" uid="uid://dvf8lcroi8t3u" path="res://assets/images/end/red_arrow_up.png" id="6_d82el"]
+[ext_resource type="Texture2D" uid="uid://cwqy2s08yvrga" path="res://assets/images/end/red_arrow_down.png" id="7_4381y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0afx"]
+shader = ExtResource("3_d82el")
 
 [node name="End" type="Control"]
 custom_minimum_size = Vector2(640, 512)
@@ -26,8 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_xa3jk")
-expand_mode = 1
-stretch_mode = 4
+stretch_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -53,6 +57,15 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(430, 55.5)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("4_don5d")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(72, 40)
 layout_mode = 2
@@ -62,7 +75,7 @@ theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 12
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "YOUR SCORE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -72,15 +85,22 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(540, 40)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 4
 theme_override_font_sizes/font_size = 36
-text = "99"
+text = "its over 9000"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Whitespace" type="Label" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(540, 16)
+visible = false
+custom_minimum_size = Vector2(540, 8)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -93,15 +113,214 @@ theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 12
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "ENTER YOUR NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Whitespace3" type="Label" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(540, 40)
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
+size_flags_vertical = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up1" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel1" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="Down1" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel3" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up4" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel4" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down4" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up5" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel5" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down5" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up6" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer6"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel6" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer6"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down6" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer6"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up7" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer7"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel7" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer7"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down7" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer7"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
+
+[node name="VBoxContainer8" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Up8" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer8"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_d82el")
+
+[node name="TextLabel8" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer8"]
+custom_minimum_size = Vector2(52, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Down8" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer8"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_4381y")
