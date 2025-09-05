@@ -24,7 +24,7 @@ func _ready():
 	_show_next_image()
 
 
-func _load_images(folder, is_phish):
+func _load_images(folder, is_phish: bool):
 	var dir = DirAccess.open(folder)
 	if dir == null: return
 	dir.list_dir_begin()
@@ -51,6 +51,9 @@ func _load_solutions(folder):
 
 
 func _process(delta):
+	if not GameManager.game_running:
+		return
+	
 	elapsed += delta
 	if elapsed - last_answer_time < answer_cooldown: return
 	if is_busy: return  # ignore input while showing solution
@@ -60,7 +63,10 @@ func _process(delta):
 
 
 func _show_next_image():
-	if images.is_empty(): return
+	if not GameManager.game_running:
+		return
+	if images.is_empty(): 
+		return
 
 	current_image = images.pop_front()
 	content.texture = load(current_image.path)
@@ -100,6 +106,8 @@ func _show_solution(id: String):
 		content.texture = load(bad_solutions[id])
 		await get_tree().create_timer(solution_time).timeout
 		is_busy = false
+		if GameManager.lives < 1:
+			GameManager.solution_finished()
 	_animate_out(_show_next_image)
 
 

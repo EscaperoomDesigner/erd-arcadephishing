@@ -1,7 +1,8 @@
 extends Control
 
-@export var full_heart_texture_1: Texture2D
-@export var empty_heart_texture_1: Texture2D
+
+const END_PACKED_SCENE: PackedScene = preload("uid://bomsy4dsoap7a")
+
 
 @onready var timer_label: Label = %TimerLabel
 @onready var heart_1: TextureRect = %Heart1
@@ -14,18 +15,17 @@ var empty_heart_texture: Texture2D = preload("../../assets/images/game/heart_emp
 
 var game_time := 123.0  # total game time in seconds
 var elapsed := 0.0
-var game_running := false
+
 
 func _ready():
 	# Start game loop
 	elapsed = 0
-	game_running = true
+	GameManager.game_running = true
 	GameManager.life_lost.connect(_on_life_lost)
 	GameManager.game_over.connect(_on_game_over)
 
-
 func _process(delta):
-	if not game_running:
+	if not GameManager.game_running:
 		return
 
 	elapsed += delta
@@ -41,12 +41,12 @@ func _process(delta):
 
 
 func end_game():
-	game_running = false
-	print("Game over!")
+	print("game over unlucky!")
+	GameManager.game_running = false
+	CrtDisplay.fade_to_packed(END_PACKED_SCENE, 1.05)
 
 
 func _on_life_lost(current_lives: int):
-	print("test")
 	heart_1.texture = full_heart_texture if current_lives >= 1 else empty_heart_texture
 	heart_2.texture = full_heart_texture if current_lives >= 2 else empty_heart_texture
 	heart_3.texture = full_heart_texture if current_lives >= 3 else empty_heart_texture

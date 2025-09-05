@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://bomsy4dsoap7a"]
+
+[ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_snkly"]
+[ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="1_xa3jk"]
+
+[node name="End" type="Control"]
+custom_minimum_size = Vector2(640, 512)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_snkly")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_xa3jk")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TimerLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "15"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.803922, 0.541176, 1)
+theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 36
+text = "YOUR SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(540, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Whitespace" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(540, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.803922, 0.541176, 1)
+theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 36
+text = "ENTER YOUR NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Whitespace3" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(540, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1

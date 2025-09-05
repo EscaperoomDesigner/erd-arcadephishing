@@ -121,7 +121,7 @@ TE IDENTIFICEREN"
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
-text = "SUCCESS! DRUK D OM VERDER TE GAAN!"
+text = "SUCCESS! DRUK A OM VERDER TE GAAN!"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
