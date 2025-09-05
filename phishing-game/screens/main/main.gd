@@ -5,9 +5,16 @@ extends Control
 @onready var heart_1: TextureRect = %Heart1
 @onready var heart_2: TextureRect = %Heart2
 @onready var heart_3: TextureRect = %Heart3
+@onready var yes: TextureRect = %Yes
+@onready var no: TextureRect = %No
 
 var full_heart_texture: Texture2D = preload("../../assets/images/game/heart.png")
 var empty_heart_texture: Texture2D = preload("../../assets/images/game/heart_empty.png")
+var yes_normal: Texture2D = preload("res://assets/images/game/button_ja.png")
+var yes_selected: Texture2D = preload("res://assets/images/game/button_hover_ja.png")
+var no_normal: Texture2D = preload("res://assets/images/game/button_nee.png")
+var no_selected: Texture2D = preload("res://assets/images/game/button_hover_nee.png")
+
 var game_time := 123.0  # total game time in seconds
 var elapsed := 0.0
 
@@ -20,6 +27,7 @@ func _ready():
 	GameManager.life_lost.connect(_on_life_lost)
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.score_changed.connect(_on_score_changed)
+	GameManager.candidate_changed.connect(_on_candidate_changed)
 
 
 
@@ -56,3 +64,16 @@ func _on_game_over():
 
 func _on_score_changed(new_score: int):
 	score_label.text = str(new_score)
+
+
+func _on_candidate_changed(candidate: int):
+	match candidate:
+		0:  # YES
+			yes.texture = yes_selected
+			no.texture = no_normal
+		1:  # NO
+			yes.texture = yes_normal
+			no.texture = no_selected
+		2:  # None
+			yes.texture = yes_normal
+			no.texture = no_normal

@@ -3,6 +3,8 @@ extends Node
 signal life_lost(current_lives: int)
 signal game_over()
 signal score_changed(new_score: int)
+signal candidate_changed(candidate: int)
+
 
 const START_PACKED_SCENE: PackedScene = preload("uid://c4ma6otpwlva4")
 const TUTORIAL_PACKED_SCENE: PackedScene = preload("uid://b0ckh3uehbwwd")

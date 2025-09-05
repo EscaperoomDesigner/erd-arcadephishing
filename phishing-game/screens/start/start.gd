@@ -32,10 +32,8 @@ func _process(delta):
 		return
 
 	# Check input
-	if Input.is_action_just_pressed("phishing_yes"):
+	if Input.is_action_just_pressed("phishing_confirm"):
 		_start_transition()
-	elif Input.is_action_just_pressed("return"):
-		get_tree().quit()
 
 func _start_transition():
 	transition_in_progress = true

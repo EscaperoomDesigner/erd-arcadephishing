@@ -13,6 +13,12 @@ var elapsed: float = 0.0
 var last_answer_time: float = -999.0
 var is_busy: bool = false
 
+var candidate_stick: String = ""   # "left" or "right"
+var confirmed_stick: String = ""
+var candidate_answer: int = 2  # 0 = yes, 1 = no, 2 = null
+
+
+
 
 func _ready():
 	randomize()
@@ -52,17 +58,30 @@ func _load_solutions(folder):
 func _process(delta):
 	if not GameManager.game_running:
 		return
-	
+
 	elapsed += delta
-	if elapsed - last_answer_time < answer_cooldown: return
-	
-	if is_busy || GameManager.input_lock: 
+	if elapsed - last_answer_time < answer_cooldown:
+		return
+	if is_busy or GameManager.input_lock:
 		return  # ignore input while showing solution
 
-	if Input.is_action_just_pressed("phishing_yes"): 
-		_check_answer(true)
-	elif Input.is_action_just_pressed("phishing_no"): 
-		_check_answer(false)
+	# --- Select candidate (but don't confirm yet) ---
+	if Input.is_action_just_pressed("phishing_yes"):
+		candidate_answer = 0
+		GameManager.emit_signal("candidate_changed", candidate_answer)
+		print("Candidate answer: YES")
+
+	elif Input.is_action_just_pressed("phishing_no"):
+		candidate_answer = 1
+		GameManager.emit_signal("candidate_changed", candidate_answer)
+		print("Candidate answer: NO")
+		
+
+	# --- Confirm selection ---
+	if candidate_answer != 2 and Input.is_action_just_pressed("phishing_confirm"):
+		_check_answer(candidate_answer == 0)  # true if YES
+		candidate_answer = 2  # reset after confirming
+		GameManager.emit_signal("candidate_changed", candidate_answer)
 
 
 func _show_next_image():

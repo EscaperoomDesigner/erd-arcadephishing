@@ -40,7 +40,7 @@ func _process(delta):
 
 	# Detect input 
 	if can_transition:
-		if Input.is_action_just_pressed("phishing_yes"):
+		if Input.is_action_just_pressed("phishing_confirm"):
 			_start_transition()
 
 func _start_transition():

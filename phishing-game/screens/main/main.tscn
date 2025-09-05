@@ -148,6 +148,7 @@ text = "IS DIT EEN PHISHING MAIL?"
 horizontal_alignment = 1
 
 [node name="Yes" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -158,6 +159,7 @@ texture = ExtResource("6_4nmqe")
 stretch_mode = 2
 
 [node name="No" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 32)
 layout_mode = 2
 size_flags_horizontal = 4
