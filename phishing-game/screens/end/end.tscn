@@ -1,15 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bomsy4dsoap7a"]
+[gd_scene load_steps=7 format=3 uid="uid://bomsy4dsoap7a"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_snkly"]
-[ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="1_xa3jk"]
 [ext_resource type="Script" uid="uid://dxkwg6cl0y6pf" path="res://screens/end/end.gd" id="2_gg3g2"]
-[ext_resource type="Shader" uid="uid://clx8s1ify0xdj" path="res://screens/end/background.gdshader" id="3_d82el"]
+[ext_resource type="PackedScene" uid="uid://b7qqt3kh5t4p5" path="res://component/background.tscn" id="3_don5d"]
 [ext_resource type="Texture2D" uid="uid://ckqfhy304qqo4" path="res://assets/images/end/title.png" id="4_don5d"]
 [ext_resource type="Texture2D" uid="uid://dvf8lcroi8t3u" path="res://assets/images/end/red_arrow_up.png" id="6_d82el"]
 [ext_resource type="Texture2D" uid="uid://cwqy2s08yvrga" path="res://assets/images/end/red_arrow_down.png" id="7_4381y"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0afx"]
-shader = ExtResource("3_d82el")
 
 [node name="End" type="Control"]
 custom_minimum_size = Vector2(640, 512)
@@ -22,16 +18,17 @@ grow_vertical = 2
 theme = ExtResource("1_snkly")
 script = ExtResource("2_gg3g2")
 
-[node name="Background" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_j0afx")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_xa3jk")
-stretch_mode = 1
+[node name="Background" parent="." instance=ExtResource("3_don5d")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -312.0
+offset_top = -226.0
+offset_right = 968.0
+offset_bottom = 798.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

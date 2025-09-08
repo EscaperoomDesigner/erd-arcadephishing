@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 CrtDisplay="*res://globals/crt_display.tscn"
 GameManager="*res://globals/game_manager.gd"
+HighScoreManager="*res://globals/high_score_manager.gd"
 
 [display]
 

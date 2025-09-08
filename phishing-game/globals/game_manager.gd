@@ -4,6 +4,7 @@ signal life_lost(current_lives: int)
 signal game_over()
 signal score_changed(new_score: int)
 signal candidate_changed(candidate: int)
+signal high_score_achieved(position: int)
 
 
 const START_PACKED_SCENE: PackedScene = preload("uid://c4ma6otpwlva4")
@@ -18,6 +19,8 @@ var game_running: bool = false
 var pending_game_over: bool = false 
 var input_lock: bool = false
 var player_name: String = ""
+var is_new_high_score: bool = false
+var high_score_position: int = -1
 
 func lose_life(showing_solution: bool = false):
 	lives -= 1
@@ -39,9 +42,30 @@ func get_score():
 	return str(score)
 
 
+func check_high_score() -> bool:
+	return HighScoreManager.is_high_score(score)
+
+
+func save_high_score():
+	if player_name.strip_edges().is_empty():
+		player_name = "ANONYMOUS"
+	
+	high_score_position = HighScoreManager.add_high_score(player_name, score)
+	is_new_high_score = true
+	emit_signal("high_score_achieved", high_score_position)
+
+
 func reset_game():
 	lives = 3
 	score = 0
 	game_running = false
 	pending_game_over = false
 	input_lock = false
+	is_new_high_score = false
+	high_score_position = -1
+	player_name = ""
+
+# Debug function to set score for testing
+func set_score_for_testing(new_score: int):
+	score = new_score
+	emit_signal("score_changed", score)

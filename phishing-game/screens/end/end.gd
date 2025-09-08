@@ -18,6 +18,7 @@ var can_transition := false
 var rows: Array = []        # holds each VBoxContainer row (tex1, label, tex2)
 var current_index := 0      # which character slot we're editing
 var char_index := 0         # current letter in alphabet for this slot
+var is_high_score := false
 
 
 func _ready():
@@ -25,6 +26,17 @@ func _ready():
 	can_transition = false
 	transition_in_progress = false
 	score_label.text = GameManager.get_score()
+	
+	# Check if this is a high score
+	is_high_score = GameManager.check_high_score()
+	
+	# If not a high score, show top scores and allow quick exit
+	if not is_high_score:
+		_show_high_scores_info()
+		# Allow faster transition for non-high scores
+		min_display_time = 2.0
+	else:
+		print("New high score achieved! Enter your name.")
 
 	# Grab all rows dynamically
 	var hbox: HBoxContainer = %HBoxContainer
@@ -60,7 +72,16 @@ func _process(delta):
 	if transition_in_progress:
 		return
 
-	# Cycle letters
+	# Allow quick exit if not a high score and can transition
+	if not is_high_score and can_transition and Input.is_action_just_pressed("phishing_confirm"):
+		_start_transition()
+		return
+
+	# Skip name entry for non-high scores
+	if not is_high_score:
+		return
+
+	# Name entry controls (only for high scores)
 	if Input.is_action_just_pressed("phishing_up"):
 		char_index = (char_index + 1) % alphabet.length()
 		_update_current_label()
@@ -84,7 +105,8 @@ func _process(delta):
 
 
 func _update_current_label():
-	rows[current_index]["label"].text = alphabet[char_index]
+	if is_high_score and current_index < rows.size():
+		rows[current_index]["label"].text = alphabet[char_index]
 
 
 func _finish_name_selection():
@@ -93,10 +115,23 @@ func _finish_name_selection():
 	for row in rows:
 		name += row["label"].text
 	print("Selected name: %s" % name)
-	GameManager.player_name = name
+	GameManager.player_name = name.strip_edges()
+	
+	# Save the high score if it qualifies
+	if is_high_score:
+		GameManager.save_high_score()
+		print("High score saved! Position: %d" % GameManager.high_score_position)
 
 	if can_transition:
 		_start_transition()
+
+
+func _show_high_scores_info():
+	print("Current high scores:")
+	print(HighScoreManager.get_high_scores_text())
+	
+	# You could add UI elements here to display high scores on screen
+	# For now, we'll just print them to console
 
 
 func _start_transition():
