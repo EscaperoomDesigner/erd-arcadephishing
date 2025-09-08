@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://75uq0a777qf6"]
+[gd_scene load_steps=13 format=3 uid="uid://75uq0a777qf6"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_h47hb"]
 [ext_resource type="Script" uid="uid://bvfch1q08ekis" path="res://screens/main/main.gd" id="1_j5age"]
@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dfgnuk0wurkug" path="res://assets/images/game/folder.png" id="4_126cu"]
 [ext_resource type="Texture2D" uid="uid://c4aoy3gtw5cno" path="res://assets/images/game/bttm.png" id="5_126cu"]
 [ext_resource type="Texture2D" uid="uid://b2jgevp66os83" path="res://assets/images/game/recyclebin.png" id="5_j6p4r"]
+[ext_resource type="Texture2D" uid="uid://c1caaj7wbnu50" path="res://assets/images/game/floppydisk.png" id="5_vhluw"]
 [ext_resource type="Texture2D" uid="uid://f3tlr06friwv" path="res://assets/images/game/button_ja.png" id="6_4nmqe"]
 [ext_resource type="Texture2D" uid="uid://bhifvidlmvq3k" path="res://assets/images/game/button_nee.png" id="7_4nmqe"]
+[ext_resource type="Texture2D" uid="uid://bfofanpsxwvqq" path="res://assets/images/game/browser.png" id="7_yg3ed"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6p4r"]
 texture = ExtResource("5_126cu")
@@ -89,6 +91,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("5_j6p4r")
 
+[node name="FloppyDisk" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("5_vhluw")
+
 [node name="Folder" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
@@ -97,7 +108,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("4_126cu")
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Folder"]
+[node name="Browser" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("7_yg3ed")
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Browser"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 1
@@ -113,8 +132,7 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
-theme_override_colors/font_color = Color(0.872485, 0.20419, 0.121953, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 4

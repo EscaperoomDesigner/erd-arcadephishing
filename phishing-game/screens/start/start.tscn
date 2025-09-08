@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4ma6otpwlva4"]
+[gd_scene load_steps=10 format=3 uid="uid://c4ma6otpwlva4"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_0w6la"]
 [ext_resource type="Script" uid="uid://dpd5ojp1sq08r" path="res://screens/start/start.gd" id="1_1g8oq"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cskc8ytrmispa" path="res://assets/images/menu/button_default.png" id="5_0el08"]
 [ext_resource type="Texture2D" uid="uid://dmknjsubqj8s2" path="res://assets/images/menu/button_1p.png" id="5_ut5s6"]
 [ext_resource type="Texture2D" uid="uid://cuygt21c4nhtw" path="res://assets/images/menu/button_2p.png" id="6_7824y"]
+[ext_resource type="Texture2D" uid="uid://boswxswi8ag8t" path="res://assets/images/menu/joycon.png" id="8_1dtxe"]
+[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="8_7824y"]
 
 [node name="Start" type="Control"]
 custom_minimum_size = Vector2(640, 512)
@@ -16,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0w6la")
 script = ExtResource("1_1g8oq")
 
 [node name="BackgroundRect" type="TextureRect" parent="."]
@@ -46,7 +49,7 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 32
+theme_override_constants/separation = 48
 
 [node name="Title" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -59,20 +62,7 @@ expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(460, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 18
-text = "MOVE JOYSTICK UP OR DOWN TO SELECT MODE
-
-PRESS C TO CONFIRM"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+theme_override_constants/separation = 16
 
 [node name="VBoxContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -132,7 +122,7 @@ vertical_alignment = 1
 [node name="HighscoresButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(208, 32)
+custom_minimum_size = Vector2(208, 34)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -151,3 +141,97 @@ theme_override_font_sizes/font_size = 16
 text = "Highscores"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundRect/MarginContainer"]
+custom_minimum_size = Vector2(336, 72)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="InfoContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 12
+text = "MOVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("8_1dtxe")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 12
+text = "TO SELECT MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(336, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 12
+text = "MOVE JOYSTICK TO SELECT MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 12
+text = "PRESS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("8_7824y")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 12
+text = "TO CONFIRM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="BackgroundRect/MarginContainer"]
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "V0.1.0"
