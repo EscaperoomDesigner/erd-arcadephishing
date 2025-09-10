@@ -14,6 +14,7 @@ extends Control
 var transition_in_progress := false
 var elapsed := 0.0
 var can_transition := false
+var name_selection_complete := false  # Prevent multiple saves
 
 var rows: Array = []        # holds each VBoxContainer row (tex1, label, tex2)
 var current_index := 0      # which character slot we're editing
@@ -25,6 +26,7 @@ func _ready():
 	elapsed = 0.0
 	can_transition = false
 	transition_in_progress = false
+	name_selection_complete = false  # Reset the flag
 	score_label.text = GameManager.get_score()
 	
 	# Check if this is a high score
@@ -45,7 +47,7 @@ func _ready():
 			var tex_up: TextureRect = vbox.get_child(0)
 			var label: Label = vbox.get_child(1)
 			var tex_down: TextureRect = vbox.get_child(2)
-			label.text = ""  # start empty
+			label.text = ""
 			rows.append({ "tex_up": tex_up, "label": label, "tex_down": tex_down })
 
 	# Initialize first letter
@@ -68,20 +70,14 @@ func _process(delta):
 	if elapsed >= max_display_time and not transition_in_progress:
 		_start_transition()
 
-	# Block input while transitioning
-	if transition_in_progress:
+	# Block input while transitioning or if name selection is complete
+	if transition_in_progress or name_selection_complete:
 		return
 
-	# Allow quick exit if not a high score and can transition
-	if not is_high_score and can_transition and Input.is_action_just_pressed("phishing_confirm"):
-		_start_transition()
-		return
+	# Allow quick exit only after name entry is complete
+	# (removed the quick exit for non-high scores since all players can now enter names)
 
-	# Skip name entry for non-high scores
-	if not is_high_score:
-		return
-
-	# Name entry controls (only for high scores)
+	# Name entry controls (for all players)
 	if Input.is_action_just_pressed("phishing_up"):
 		char_index = (char_index + 1) % alphabet.length()
 		_update_current_label()
@@ -90,10 +86,12 @@ func _process(delta):
 		_update_current_label()
 
 	if Input.is_action_just_pressed("phishing_confirm"):
-		# Change the TextureRects to red arrows for this slot
-		var row = rows[current_index]
-		row["tex_up"].texture = red_arrow_up
-		row["tex_down"].texture = red_arrow_down
+		# Check bounds before accessing
+		if current_index < rows.size():
+			# Change the TextureRects to red arrows for this slot
+			var row = rows[current_index]
+			row["tex_up"].texture = red_arrow_up
+			row["tex_down"].texture = red_arrow_down
 
 		current_index += 1
 		if current_index >= rows.size():
@@ -105,25 +103,38 @@ func _process(delta):
 
 
 func _update_current_label():
-	if is_high_score and current_index < rows.size():
+	if current_index < rows.size() and char_index < alphabet.length():
 		rows[current_index]["label"].text = alphabet[char_index]
+	else:
+		print("Warning: Index out of bounds in _update_current_label - current_index: %d, rows.size(): %d, char_index: %d, alphabet.length(): %d" % [current_index, rows.size(), char_index, alphabet.length()])
 
 
 func _finish_name_selection():
+	# Prevent multiple calls
+	if name_selection_complete:
+		return
+		
+	name_selection_complete = true
 	print("Name selection done!")
-	var name = ""
-	for row in rows:
-		name += row["label"].text
-	print("Selected name: %s" % name)
-	GameManager.player_name = name.strip_edges()
+	var chosen_name = ""
+	# Only iterate through available rows, don't assume max_chars
+	for i in range(min(rows.size(), max_chars)):
+		if i < rows.size():
+			chosen_name += rows[i]["label"].text
 	
-	# Save the high score if it qualifies
-	if is_high_score:
-		GameManager.save_high_score()
-		print("High score saved! Position: %d" % GameManager.high_score_position)
+	GameManager.player_name = chosen_name.strip_edges()
+	
+	# Always save the score, regardless of whether it's a high score
+	GameManager.save_high_score()
 
+	# Wait for transition to be available, then start it
 	if can_transition:
 		_start_transition()
+	else:
+		while not can_transition and not transition_in_progress:
+			await get_tree().process_frame
+		if not transition_in_progress:  # Only start if not already transitioning
+			_start_transition()
 
 
 func _show_high_scores_info():
@@ -138,4 +149,6 @@ func _start_transition():
 	if transition_in_progress:
 		return
 	transition_in_progress = true
+	
+	GameManager.reset_game()
 	CrtDisplay.fade_to_packed(start_packed_scene, 1.05)

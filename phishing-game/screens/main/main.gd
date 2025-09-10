@@ -15,7 +15,7 @@ var yes_selected: Texture2D = preload("res://assets/images/game/button_hover_ja.
 var no_normal: Texture2D = preload("res://assets/images/game/button_nee.png")
 var no_selected: Texture2D = preload("res://assets/images/game/button_hover_nee.png")
 
-var game_time := 123.0  # total game time in seconds
+var game_time := 5.0  # total game time in seconds
 var elapsed := 0.0
 
 
@@ -44,12 +44,13 @@ func _process(delta):
 	timer_label.text = "%d:%02d" % [minutes, seconds]
 
 	if remaining <= 0:
+		GameManager.timer_ran_out = true
 		end_game()
 
 
 func end_game():
 	GameManager.game_running = false
-	print("game over unlucky!")
+	GameManager.emit_signal("timer_expired")
 
 
 func _on_life_lost(current_lives: int):

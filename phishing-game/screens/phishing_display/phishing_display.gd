@@ -12,6 +12,7 @@ var current_image
 var elapsed: float = 0.0
 var last_answer_time: float = -999.0
 var is_busy: bool = false
+var showing_solution: bool = false
 
 var candidate_stick: String = ""   # "left" or "right"
 var confirmed_stick: String = ""
@@ -27,6 +28,9 @@ func _ready():
 	_load_solutions("res://assets/phishing/bad_solution")
 	images.shuffle()
 	_show_next_image()
+	
+	# Connect to timer expired signal
+	GameManager.timer_expired.connect(_on_timer_expired)
 
 
 func _load_images(folder, is_phish: bool):
@@ -138,12 +142,14 @@ func _show_solution(id: String, fade_to_end := false):
 		return
 
 	is_busy = true
+	showing_solution = true
 	content.texture = load(bad_solutions[id])
 
 	# Wait while showing solution
 	await get_tree().create_timer(solution_time).timeout
 
 	is_busy = false
+	showing_solution = false
 
 	if fade_to_end:
 		_fade_to_end()
@@ -159,7 +165,9 @@ func _fade_to_end():
 	t.tween_property(self, "scale", Vector2.ZERO, scale_duration)
 	t.tween_callback(func():
 		is_busy = false
+		showing_solution = false
 		GameManager.game_running = false
+		GameManager.input_lock = false  # Ensure input is unlocked
 		CrtDisplay.fade_to_packed(GameManager.END_PACKED_SCENE)
 	)
 
@@ -174,3 +182,15 @@ func _animate_out(next_cb):
 		is_busy = false
 		next_cb.call()
 	)
+
+
+func _on_timer_expired():
+	# When timer expires, check if solution is showing
+	if showing_solution:
+		# Wait for solution to finish, then fade to end
+		while showing_solution:
+			await get_tree().process_frame
+		_fade_to_end()
+	else:
+		# No solution showing, immediately fade to end
+		_fade_to_end()

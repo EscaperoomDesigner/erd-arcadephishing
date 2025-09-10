@@ -5,6 +5,7 @@ signal game_over()
 signal score_changed(new_score: int)
 signal candidate_changed(candidate: int)
 signal high_score_achieved(position: int)
+signal timer_expired()
 
 
 const START_PACKED_SCENE: PackedScene = preload("uid://c4ma6otpwlva4")
@@ -21,6 +22,8 @@ var input_lock: bool = false
 var player_name: String = ""
 var is_new_high_score: bool = false
 var high_score_position: int = -1
+var timer_ran_out: bool = false
+var start_game_blocked: bool = false  # Prevent double start game calls
 
 func lose_life(showing_solution: bool = false):
 	lives -= 1
@@ -56,6 +59,7 @@ func save_high_score():
 
 
 func reset_game():
+	print("GameManager.reset_game() called - BEFORE: start_game_blocked = %s" % start_game_blocked)
 	lives = 3
 	score = 0
 	game_running = false
@@ -64,6 +68,9 @@ func reset_game():
 	is_new_high_score = false
 	high_score_position = -1
 	player_name = ""
+	timer_ran_out = false
+	start_game_blocked = false  # Reset the start game block
+	print("GameManager.reset_game() called - AFTER: start_game_blocked = %s" % start_game_blocked)
 
 # Debug function to set score for testing
 func set_score_for_testing(new_score: int):

@@ -3,7 +3,8 @@ extends Node
 signal new_high_score()
 
 const SAVE_FILE_PATH = "user://high_scores.json"
-const MAX_HIGH_SCORES = 10
+const MAX_HIGH_SCORES_DISPLAY = 10  # How many scores to show in displays
+# No limit on total scores saved - all scores will be kept
 
 var high_scores: Array[Dictionary] = []
 
@@ -53,20 +54,21 @@ func save_high_scores():
 	file.close()
 	print("High scores saved successfully")
 
-# Check if a score qualifies as a high score
+# Check if a score qualifies as a high score (for display purposes)
 func is_high_score(score: int) -> bool:
-	if high_scores.size() < MAX_HIGH_SCORES:
+	if high_scores.size() < MAX_HIGH_SCORES_DISPLAY:
 		return true
 	
-	# Find the lowest score in the high scores list
-	var lowest_score = high_scores[0].score
-	for high_score in high_scores:
+	# Find the lowest score in the top scores
+	var top_scores = high_scores.slice(0, MAX_HIGH_SCORES_DISPLAY)
+	var lowest_score = top_scores[0].score
+	for high_score in top_scores:
 		if high_score.score < lowest_score:
 			lowest_score = high_score.score
 	
 	return score > lowest_score
 
-# Add a new high score
+# Add a new score (now saves all scores, not just high scores)
 func add_high_score(player_name: String, score: int) -> int:
 	var new_entry = {
 		"name": player_name.strip_edges(),
@@ -79,10 +81,6 @@ func add_high_score(player_name: String, score: int) -> int:
 	# Sort by score (descending)
 	high_scores.sort_custom(func(a, b): return a.score > b.score)
 	
-	# Keep only top scores
-	if high_scores.size() > MAX_HIGH_SCORES:
-		high_scores.resize(MAX_HIGH_SCORES)
-	
 	# Find the position of the new score
 	var position = -1
 	for i in range(high_scores.size()):
@@ -90,10 +88,12 @@ func add_high_score(player_name: String, score: int) -> int:
 			position = i + 1  # 1-indexed for display
 			break
 	
+	# Keep only top scores for display purposes, but save all scores
+	# You can increase MAX_HIGH_SCORES if you want to display more scores
+	
 	save_high_scores()
 	
-	if position <= MAX_HIGH_SCORES:
-		emit_signal("new_high_score")
+	emit_signal("new_high_score")
 	
 	return position
 
@@ -113,7 +113,8 @@ func get_high_scores_text() -> String:
 		return "No high scores yet!"
 	
 	var text = ""
-	for i in range(min(5, high_scores.size())):  # Show top 5
+	var display_count = min(5, min(MAX_HIGH_SCORES_DISPLAY, high_scores.size()))
+	for i in range(display_count):  # Show top 5 or fewer
 		var entry = high_scores[i]
 		text += "%d. %s - %d\n" % [i + 1, entry.name, entry.score]
 	

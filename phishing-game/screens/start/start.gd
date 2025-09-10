@@ -23,6 +23,7 @@ var two_player_button_selected: Texture2D = preload("res://assets/images/menu/bu
 
 var transition_in_progress := false  # Prevent multiple triggers
 var waiting_for_crt := false         # Flag to wait until fade completes
+var scene_ready := false             # Prevent immediate input on scene load
 
 # Navigation state
 enum MenuRow { PLAYER_SELECT, HIGH_SCORES }
@@ -32,7 +33,15 @@ var selected_player_mode: int = 1  # 1 or 2 players
 
 func _ready():
 	base_y = title.position.y
-	_update_button_display()  # Set initial button state
+	_update_button_display()
+	
+	# Wait for CRT transition to complete before allowing input
+	while CrtDisplay._transitioning:
+		await get_tree().process_frame
+	
+	# Small delay to prevent immediate input after scene transition
+	await get_tree().create_timer(0.5).timeout
+	scene_ready = true
 
 
 func _process(delta):
@@ -46,8 +55,8 @@ func _process(delta):
 			waiting_for_crt = false
 		return
 
-	# If a transition is in progress, ignore input
-	if transition_in_progress:
+	# If a transition is in progress or scene not ready, ignore input
+	if transition_in_progress or not scene_ready:
 		return
 
 	# Vertical navigation (UP/DOWN)
@@ -100,16 +109,19 @@ func _show_high_scores():
 	# In a full implementation, you'd create a high scores scene
 
 func _start_game():
-	# Set the selected player mode in GameManager
-	# You'll need to add this variable to GameManager if you want to use it
+	# Prevent multiple calls if game start is blocked
+	if GameManager.start_game_blocked:
+		return
+		
 	print("Starting game with %d player(s)" % selected_player_mode)
 	_start_transition()
 
 func _start_transition():
+	if transition_in_progress:
+		return
+		
 	transition_in_progress = true
 	waiting_for_crt = true
-
-	# Call CRT Global fade
-	CrtDisplay.fade_to_packed(GameManager.TUTORIAL_PACKED_SCENE)
+	GameManager.start_game_blocked = true
 	
-	GameManager.reset_game()
+	CrtDisplay.fade_to_packed(GameManager.TUTORIAL_PACKED_SCENE)
