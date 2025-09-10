@@ -102,11 +102,18 @@ func _update_button_display():
 
 
 func _show_high_scores():
-	print("Showing high scores...")
-	print(HighScoreManager.get_high_scores_text())
+	_start_highscore_transition()
+
+func _start_highscore_transition():
+	if transition_in_progress:
+		return
+		
+	transition_in_progress = true
+	waiting_for_crt = true
 	
-	# For now, we'll just print the scores
-	# In a full implementation, you'd create a high scores scene
+	# Load the high score scene
+	var highscore_scene = preload("res://screens/highscore/highscore.tscn")
+	CrtDisplay.fade_to_packed(highscore_scene)
 
 func _start_game():
 	# Prevent multiple calls if game start is blocked

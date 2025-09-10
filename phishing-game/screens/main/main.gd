@@ -15,7 +15,7 @@ var yes_selected: Texture2D = preload("res://assets/images/game/button_hover_ja.
 var no_normal: Texture2D = preload("res://assets/images/game/button_nee.png")
 var no_selected: Texture2D = preload("res://assets/images/game/button_hover_nee.png")
 
-var game_time := 5.0  # total game time in seconds
+var game_time := 123.0  # total game time in seconds
 var elapsed := 0.0
 
 

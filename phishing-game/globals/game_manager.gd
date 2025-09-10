@@ -59,7 +59,6 @@ func save_high_score():
 
 
 func reset_game():
-	print("GameManager.reset_game() called - BEFORE: start_game_blocked = %s" % start_game_blocked)
 	lives = 3
 	score = 0
 	game_running = false
@@ -70,7 +69,7 @@ func reset_game():
 	player_name = ""
 	timer_ran_out = false
 	start_game_blocked = false  # Reset the start game block
-	print("GameManager.reset_game() called - AFTER: start_game_blocked = %s" % start_game_blocked)
+
 
 # Debug function to set score for testing
 func set_score_for_testing(new_score: int):
