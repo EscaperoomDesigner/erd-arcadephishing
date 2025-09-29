@@ -150,9 +150,6 @@ func _on_life_lost(current_lives: int):
 	heart_1.texture = full_heart_texture if current_lives >= 1 else empty_heart_texture
 	heart_2.texture = full_heart_texture if current_lives >= 2 else empty_heart_texture
 	heart_3.texture = full_heart_texture if current_lives >= 3 else empty_heart_texture
-	
-	# Play life lost sound
-	#SfxManager.play_life_lost()
 
 
 func _on_game_over():

@@ -18,10 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 CrtDisplay="*res://globals/crt_display.tscn"
+GameManager="*res://globals/game_manager.gd"
 SettingsManager="*res://globals/settings_manager.gd"
 SfxManager="*res://globals/sfx_manager.tscn"
 MusicManager="*res://globals/music_manager.tscn"
-GameManager="*res://globals/game_manager.gd"
 HighScoreManager="*res://globals/high_score_manager.gd"
 
 [display]

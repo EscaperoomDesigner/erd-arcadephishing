@@ -51,7 +51,6 @@ func _on_settings_loaded():
 	if settings_manager:
 		# Update our internal volume variable for compatibility
 		master_volume = settings_manager.get_master_volume_normalized()
-		print("SFXManager connected to SettingsManager - Master volume: ", master_volume, " (", settings_manager.get_master_volume(), "/10)")
 
 func _on_settings_changed():
 	# Reuse the same logic as settings_loaded
@@ -144,15 +143,12 @@ func play_sound(sound: AudioStream, player_type: String = "game"):
 
 # Volume control functions (deprecated - use SettingsManager instead)
 func set_master_volume(volume: float):
-	print("Warning: SFXManager.set_master_volume() is deprecated. Use SettingsManager.set_master_volume() instead.")
 	master_volume = clamp(volume, 0.0, 1.0)
 
 func set_sfx_volume(volume: float):
-	print("Warning: SFXManager.set_sfx_volume() is deprecated. SFX volume is now controlled via Master volume in SettingsManager.")
 	sfx_volume = clamp(volume, 0.0, 1.0)
 
 func set_ui_volume(volume: float):
-	print("Warning: SFXManager.set_ui_volume() is deprecated. UI volume is now controlled via Master volume in SettingsManager.")
 	ui_volume = clamp(volume, 0.0, 1.0)
 
 # Utility functions

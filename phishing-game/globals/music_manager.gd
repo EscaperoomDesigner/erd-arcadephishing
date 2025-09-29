@@ -49,8 +49,7 @@ func _apply_volume_settings(settings_manager):
 	# SettingsManager now handles audio bus volumes directly
 	# We just need to track the current volume for internal use
 	music_volume = settings_manager.get_music_volume_normalized()
-	print("MusicManager connected to SettingsManager - Music volume: ", music_volume, " (", settings_manager.get_music_volume(), "/10)")
-	
+
 	# Ensure audio player volume is at default (bus handles actual volume)
 	if audio_player:
 		audio_player.volume_db = 0.0
@@ -70,10 +69,6 @@ func stop_music():
 		audio_player.stop()
 	is_playing = false
 	current_track = null
-
-func set_volume(_volume: float):
-	# This function is deprecated - use SettingsManager instead
-	print("Warning: set_volume() is deprecated. Use SettingsManager.set_music_volume() instead.")
 
 func fade_out_and_stop():
 	if not audio_player or not audio_player.playing:
