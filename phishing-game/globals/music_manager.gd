@@ -5,15 +5,15 @@ var main_music: AudioStream = preload("res://assets/sounds/music/main.wav")
 var game_music: AudioStream = preload("res://assets/sounds/music/game.wav")
 
 # Audio player
-var audio_player: AudioStreamPlayer
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 # Current music state
 var current_track: AudioStream
 var is_playing: bool = false
 
 # Volume settings
-@export var music_volume: float = 0.7
-@export var fade_duration: float = 1.0
+var music_volume: float
+var fade_duration: float = 1.0
 
 enum MusicTrack {
 	NONE,
@@ -22,13 +22,6 @@ enum MusicTrack {
 }
 
 func _ready():
-	# Create audio player
-	audio_player = AudioStreamPlayer.new()
-	add_child(audio_player)
-	
-	# Set the audio player to use the Music bus
-	audio_player.bus = "Music"
-	
 	# Connect to SettingsManager and load volume
 	call_deferred("_initialize_with_settings")
 	
@@ -57,6 +50,10 @@ func _apply_volume_settings(settings_manager):
 	# We just need to track the current volume for internal use
 	music_volume = settings_manager.get_music_volume_normalized()
 	print("MusicManager connected to SettingsManager - Music volume: ", music_volume, " (", settings_manager.get_music_volume(), "/10)")
+	
+	# Ensure audio player volume is at default (bus handles actual volume)
+	if audio_player:
+		audio_player.volume_db = 0.0
 
 func _on_settings_changed():
 	# Reuse the same logic as settings_loaded
@@ -83,11 +80,15 @@ func fade_out_and_stop():
 		return
 		
 	var tween = create_tween()
-	tween.tween_method(_set_volume_db, audio_player.volume_db, -80.0, fade_duration)
-	tween.tween_callback(stop_music)
+	if tween:
+		tween.tween_method(_set_volume_db, audio_player.volume_db, -80.0, fade_duration)
+		tween.tween_callback(stop_music)
+	else:
+		# Fallback if tween creation fails
+		stop_music()
 
 func _play_track(track: AudioStream, loop: bool = true):
-	if not track:
+	if not track or not audio_player:
 		return
 		
 	# Don't restart the same track if it's already playing
@@ -97,12 +98,19 @@ func _play_track(track: AudioStream, loop: bool = true):
 	# Fade out current music if playing
 	if audio_player.playing and current_track != track:
 		var tween = create_tween()
-		tween.tween_method(_set_volume_db, audio_player.volume_db, -80.0, fade_duration * 0.5)
-		tween.tween_callback(_start_new_track.bind(track, loop))
+		if tween:
+			tween.tween_method(_set_volume_db, audio_player.volume_db, -80.0, fade_duration * 0.5)
+			tween.tween_callback(_start_new_track.bind(track, loop))
+		else:
+			# Fallback if tween creation fails
+			_start_new_track(track, loop)
 	else:
 		_start_new_track(track, loop)
 
 func _start_new_track(track: AudioStream, _loop: bool):
+	if not audio_player or not track:
+		return
+		
 	audio_player.stream = track
 	current_track = track
 	
@@ -112,7 +120,11 @@ func _start_new_track(track: AudioStream, _loop: bool):
 	
 	# Fade in
 	var tween = create_tween()
-	tween.tween_method(_set_volume_db, -80.0, linear_to_db(music_volume), fade_duration * 0.5)
+	if tween:
+		tween.tween_method(_set_volume_db, -80.0, 0.0, fade_duration * 0.5)
+	else:
+		# Fallback if tween creation fails - set volume directly
+		audio_player.volume_db = 0.0
 	
 	is_playing = true
 

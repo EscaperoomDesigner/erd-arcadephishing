@@ -23,6 +23,7 @@ var countdown_time: float = 3.0
 var countdown_elapsed: float = 0.0
 var time_warning_played: bool = false  # Track if time warning sound has been played
 var countdown_sounds_played: Dictionary = {"3": false, "2": false, "1": false, "GO": false}  # Track which sounds have been played
+var last_second_played: int = -1  # Track the last second for timer tick sound
 
 
 func _ready():
@@ -31,6 +32,7 @@ func _ready():
 	score_label.text = "0"
 	countdown_label.visible = true
 	countdown_label.text = ""
+	last_second_played = -1  # Reset timer tick tracking
 	
 	# Connect signals
 	GameManager.life_lost.connect(_on_life_lost)
@@ -58,15 +60,18 @@ func _process(delta):
 	elapsed += delta
 	var remaining = max(game_time - elapsed, 0)
 	
-	# Play time warning sound when 10 seconds remaining
-	if remaining <= 10.0 and remaining > 0 and not time_warning_played:
-		time_warning_played = true
-		SfxManager.play_time_warning()
+	# Play timer tick sound every second
+	var current_second = int(remaining)
+	if current_second != last_second_played and remaining > 0:
+		last_second_played = current_second
+		SfxManager.play_time()
+	
 	
 	# Update timer label in MM:SS format
 	var minutes = int(remaining) / 60.0
 	var seconds = int(remaining) % 60
 	timer_label.text = "%d:%02d" % [minutes, seconds]
+
 
 	if remaining <= 0:
 		GameManager.timer_ran_out = true

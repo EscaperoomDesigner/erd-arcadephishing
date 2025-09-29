@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7qqt3kh5t4p5"]
 
-[ext_resource type="Shader" uid="uid://clx8s1ify0xdj" path="res://screens/end/background.gdshader" id="1_pfshb"]
+[ext_resource type="Shader" uid="uid://clx8s1ify0xdj" path="res://resources/background.gdshader" id="1_pfshb"]
 [ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="2_j0770"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0afx"]

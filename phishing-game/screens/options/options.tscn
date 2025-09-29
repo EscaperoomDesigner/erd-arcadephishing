@@ -178,6 +178,99 @@ text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SfxVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(520, 24)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "SFXVOLUME"
+vertical_alignment = 1
+
+[node name="SfxProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="SfxVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumeMinus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SfxVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumePlus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClearHighscoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(520, 24)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "RESET Highscores"
+vertical_alignment = 1
+
+[node name="HighscoreResetButton" type="TextureRect" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_3swr7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer/HighscoreResetButton"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "reset"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="VersionLabel" type="Label" parent="MarginContainer"]
 custom_minimum_size = Vector2(32, 16)
 layout_mode = 2
@@ -201,5 +294,86 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Terug"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfirmPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(520, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -150.0
+offset_right = 260.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConfirmPanel"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer"]
+custom_minimum_size = Vector2(400, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Weet je zeker dat je wilt resetten?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="YesButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_3swr7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/YesButton"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "JA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NoButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_3swr7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/NoButton"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEE"
 horizontal_alignment = 1
 vertical_alignment = 1

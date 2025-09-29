@@ -5,8 +5,18 @@ extends Control
 @onready var music_volume_minus: TextureRect = %MusicVolumeMinus
 @onready var music_volume_plus: TextureRect = %MusicVolumePlus
 @onready var terug_button: TextureRect = %TerugButton
+@onready var highscore_reset_button: TextureRect = %HighscoreResetButton
 @onready var master_volume_progress: ProgressBar = %MasterProgressBar
 @onready var music_volume_progress: ProgressBar = %MusicProgressBar
+@onready var sfx_progress_bar: ProgressBar = %SfxProgressBar
+@onready var sfx_volume_minus: TextureRect = %SfxVolumeMinus
+@onready var sfx_volume_plus: TextureRect = %SfxVolumePlus
+
+
+# Confirmation popup elements (assuming these exist in the scene)
+@onready var confirmation_popup: Control = %ConfirmPanel
+@onready var confirmation_ja_button: TextureRect = %YesButton
+@onready var confirmation_nee_button: TextureRect = %NoButton
 
 @onready var start_packed_scene: PackedScene = load("uid://c4ma6otpwlva4")
 
@@ -21,24 +31,58 @@ var waiting_for_crt := false         # Flag to wait until fade completes
 var scene_ready := false             # Prevent immediate input on scene load
 
 # Navigation state
-enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, BACK }
+enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, SFX_VOLUME, HIGHSCORE_RESET, BACK }
 var current_row: OptionRow = OptionRow.MASTER_VOLUME
+
+# Confirmation popup state
+var showing_confirmation := false
+var confirmation_selection := 0  # 0 = Nee, 1 = Ja
 
 # Volume levels (0-10) - loaded from SettingsManager
 var master_volume_level: int = 10
 var music_volume_level: int = 10
+var sfx_volume_level: int = 10
+
+# Volume control data structure for cleaner code
+var volume_controls = {
+	OptionRow.MASTER_VOLUME: {
+		"level": 0,
+		"progress_bar": null,
+		"minus_button": null,
+		"plus_button": null,
+		"apply_func": "_apply_master_volume"
+	},
+	OptionRow.MUSIC_VOLUME: {
+		"level": 0,
+		"progress_bar": null,
+		"minus_button": null,
+		"plus_button": null,
+		"apply_func": "_apply_music_volume"
+	},
+	OptionRow.SFX_VOLUME: {
+		"level": 0,
+		"progress_bar": null,
+		"minus_button": null,
+		"plus_button": null,
+		"apply_func": "_apply_sfx_volume"
+	}
+}
 
 func _ready():
 	# Load settings from SettingsManager
 	_load_settings_from_manager()
 	
+	# Initialize volume controls structure
+	_setup_volume_controls()
+	
 	# Initialize progress bars
-	master_volume_progress.max_value = 10
-	master_volume_progress.value = master_volume_level
-	music_volume_progress.max_value = 10
-	music_volume_progress.value = music_volume_level
+	_initialize_progress_bars()
 	
 	_update_button_display()
+	
+	# Hide confirmation popup initially
+	if confirmation_popup:
+		confirmation_popup.visible = false
 	
 	# Play main menu music for options screen
 	MusicManager.play_main_menu_music()
@@ -63,81 +107,49 @@ func _process(_delta):
 	if transition_in_progress or not scene_ready:
 		return
 
+	# Handle input differently if confirmation popup is showing
+	if showing_confirmation:
+		_handle_confirmation_input()
+		return
+	
 	# Vertical navigation (UP/DOWN)
 	if Input.is_action_just_pressed("phishing_up"):
-		match current_row:
-			OptionRow.MUSIC_VOLUME:
-				current_row = OptionRow.MASTER_VOLUME
-			OptionRow.BACK:
-				current_row = OptionRow.MUSIC_VOLUME
-			OptionRow.MASTER_VOLUME:
-				current_row = OptionRow.BACK  # Wrap to bottom
-		_update_button_display()
-		SfxManager.play_ui_hover()
+		_navigate_vertical(-1)
 	elif Input.is_action_just_pressed("phishing_down"):
-		match current_row:
-			OptionRow.MASTER_VOLUME:
-				current_row = OptionRow.MUSIC_VOLUME
-			OptionRow.MUSIC_VOLUME:
-				current_row = OptionRow.BACK
-			OptionRow.BACK:
-				current_row = OptionRow.MASTER_VOLUME  # Wrap to top
-		_update_button_display()
-		SfxManager.play_ui_hover()
+		_navigate_vertical(1)
 
 	# Horizontal navigation (LEFT/RIGHT) - for volume controls
 	if Input.is_action_just_pressed("phishing_yes"):  # LEFT (decrease volume)
-		match current_row:
-			OptionRow.MASTER_VOLUME:
-				master_volume_level = max(0, master_volume_level - 1)
-				_apply_master_volume()
-				_update_button_display()
-				SfxManager.play_ui_hover()
-			OptionRow.MUSIC_VOLUME:
-				music_volume_level = max(0, music_volume_level - 1)
-				_apply_music_volume()
-				_update_button_display()
-				SfxManager.play_ui_hover()
+		_adjust_volume(-1)
 	elif Input.is_action_just_pressed("phishing_no"):  # RIGHT (increase volume)
-		match current_row:
-			OptionRow.MASTER_VOLUME:
-				master_volume_level = min(10, master_volume_level + 1)
-				_apply_master_volume()
-				_update_button_display()
-				SfxManager.play_ui_hover()
-			OptionRow.MUSIC_VOLUME:
-				music_volume_level = min(10, music_volume_level + 1)
-				_apply_music_volume()
-				_update_button_display()
-				SfxManager.play_ui_hover()
+		_adjust_volume(1)
 
 	# Selection (CONFIRM)
 	if Input.is_action_just_pressed("phishing_confirm"):
 		SfxManager.play_ui_select()
 		match current_row:
+			OptionRow.HIGHSCORE_RESET:
+				_show_highscore_reset_confirmation()
 			OptionRow.BACK:
 				_go_back_to_start()
 
 func _update_button_display():
 	# Reset all buttons to default state
-	master_volume_minus.texture = button_default
-	master_volume_plus.texture = button_default
-	music_volume_minus.texture = button_default
-	music_volume_plus.texture = button_default
-	terug_button.texture = terug_button_default
+	_reset_all_buttons()
+	
+	# Update confirmation buttons if popup is showing
+	if showing_confirmation:
+		_update_confirmation_display()
+		return
 	
 	# Update based on current selection
 	match current_row:
-		OptionRow.MASTER_VOLUME:
-			# Highlight master volume controls
-			master_volume_minus.texture = button_selected
-			master_volume_plus.texture = button_selected
-		OptionRow.MUSIC_VOLUME:
-			# Highlight music volume controls
-			music_volume_minus.texture = button_selected
-			music_volume_plus.texture = button_selected
+		OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME:
+			_highlight_volume_controls(current_row)
+		OptionRow.HIGHSCORE_RESET:
+			if highscore_reset_button:
+				highscore_reset_button.texture = terug_button_selected
 		OptionRow.BACK:
-			# Highlight back button
 			terug_button.texture = terug_button_selected
 
 func _apply_master_volume():
@@ -156,15 +168,80 @@ func _apply_music_volume():
 		settings_manager.set_music_volume(music_volume_level)
 	print("Music volume set to: ", music_volume_level)
 
+func _apply_sfx_volume():
+	sfx_progress_bar.value = sfx_volume_level
+	var settings_manager = get_node_or_null("/root/SettingsManager")
+	if settings_manager:
+		settings_manager.set_sfx_volume(sfx_volume_level)
+	print("SFX volume set to: ", sfx_volume_level)
+
 func _load_settings_from_manager():
 	# Load settings from the global SettingsManager
 	var settings_manager = get_node_or_null("/root/SettingsManager")
 	if settings_manager:
 		master_volume_level = settings_manager.get_master_volume()
 		music_volume_level = settings_manager.get_music_volume()
+		sfx_volume_level = settings_manager.get_sfx_volume()
 		print("Settings loaded from SettingsManager")
 	else:
 		print("SettingsManager not found, using defaults")
+
+func _handle_confirmation_input():
+	# Horizontal navigation in confirmation popup (LEFT/RIGHT)
+	if Input.is_action_just_pressed("phishing_yes"):  # LEFT - select "Ja"
+		confirmation_selection = 1
+		_update_confirmation_display()
+		SfxManager.play_ui_hover()
+	elif Input.is_action_just_pressed("phishing_no"):  # RIGHT - select "Nee"
+		confirmation_selection = 0
+		_update_confirmation_display()
+		SfxManager.play_ui_hover()
+	
+	# Confirm selection
+	elif Input.is_action_just_pressed("phishing_confirm"):
+		SfxManager.play_ui_select()
+		if confirmation_selection == 1:  # Ja selected
+			_reset_highscores()
+		_hide_confirmation_popup()
+
+func _show_highscore_reset_confirmation():
+	showing_confirmation = true
+	confirmation_selection = 0  # Default to "Nee"
+	if confirmation_popup:
+		confirmation_popup.visible = true
+	_update_confirmation_display()
+
+func _hide_confirmation_popup():
+	showing_confirmation = false
+	if confirmation_popup:
+		confirmation_popup.visible = false
+	_update_button_display()
+
+func _update_confirmation_display():
+	if not showing_confirmation:
+		return
+	
+	# Reset confirmation buttons to default
+	if confirmation_nee_button:
+		confirmation_nee_button.texture = terug_button_default
+	if confirmation_ja_button:
+		confirmation_ja_button.texture = terug_button_default
+	
+	# Highlight selected option
+	if confirmation_selection == 0:  # Nee selected
+		if confirmation_nee_button:
+			confirmation_nee_button.texture = terug_button_selected
+	else:  # Ja selected
+		if confirmation_ja_button:
+			confirmation_ja_button.texture = terug_button_selected
+
+func _reset_highscores():
+	# Reset the highscores using HighScoreManager
+	if HighScoreManager:
+		HighScoreManager.clear_high_scores()
+		print("Highscores have been reset!")
+	else:
+		print("HighScoreManager not found!")
 
 func _go_back_to_start():
 	if transition_in_progress:
@@ -175,3 +252,81 @@ func _go_back_to_start():
 	
 	# Load the start scene
 	CrtDisplay.fade_to_packed(start_packed_scene)
+
+# Helper functions for cleaner code
+func _setup_volume_controls():
+	volume_controls[OptionRow.MASTER_VOLUME].level = master_volume_level
+	volume_controls[OptionRow.MASTER_VOLUME].progress_bar = master_volume_progress
+	volume_controls[OptionRow.MASTER_VOLUME].minus_button = master_volume_minus
+	volume_controls[OptionRow.MASTER_VOLUME].plus_button = master_volume_plus
+	
+	volume_controls[OptionRow.MUSIC_VOLUME].level = music_volume_level
+	volume_controls[OptionRow.MUSIC_VOLUME].progress_bar = music_volume_progress
+	volume_controls[OptionRow.MUSIC_VOLUME].minus_button = music_volume_minus
+	volume_controls[OptionRow.MUSIC_VOLUME].plus_button = music_volume_plus
+	
+	volume_controls[OptionRow.SFX_VOLUME].level = sfx_volume_level
+	volume_controls[OptionRow.SFX_VOLUME].progress_bar = sfx_progress_bar
+	volume_controls[OptionRow.SFX_VOLUME].minus_button = sfx_volume_minus
+	volume_controls[OptionRow.SFX_VOLUME].plus_button = sfx_volume_plus
+
+func _initialize_progress_bars():
+	for row in volume_controls:
+		var control = volume_controls[row]
+		if control.progress_bar:
+			control.progress_bar.max_value = 10
+			control.progress_bar.value = control.level
+
+func _navigate_vertical(direction: int):
+	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
+	var current_index = options.find(current_row)
+	
+	if direction > 0:  # Down
+		current_index = (current_index + 1) % options.size()
+	else:  # Up
+		current_index = (current_index - 1) % options.size()
+		if current_index < 0:
+			current_index = options.size() - 1
+	
+	current_row = options[current_index]
+	_update_button_display()
+	SfxManager.play_ui_hover()
+
+func _adjust_volume(direction: int):
+	if current_row in volume_controls:
+		match current_row:
+			OptionRow.MASTER_VOLUME:
+				master_volume_level = clamp(master_volume_level + direction, 0, 10)
+				_apply_master_volume()
+			OptionRow.MUSIC_VOLUME:
+				music_volume_level = clamp(music_volume_level + direction, 0, 10)
+				_apply_music_volume()
+			OptionRow.SFX_VOLUME:
+				sfx_volume_level = clamp(sfx_volume_level + direction, 0, 10)
+				_apply_sfx_volume()
+		
+		_update_button_display()
+		SfxManager.play_ui_hover()
+
+func _reset_all_buttons():
+	master_volume_minus.texture = button_default
+	master_volume_plus.texture = button_default
+	music_volume_minus.texture = button_default
+	music_volume_plus.texture = button_default
+	sfx_volume_minus.texture = button_default
+	sfx_volume_plus.texture = button_default
+	if highscore_reset_button:
+		highscore_reset_button.texture = terug_button_default
+	terug_button.texture = terug_button_default
+
+func _highlight_volume_controls(row: OptionRow):
+	match row:
+		OptionRow.MASTER_VOLUME:
+			master_volume_minus.texture = button_selected
+			master_volume_plus.texture = button_selected
+		OptionRow.MUSIC_VOLUME:
+			music_volume_minus.texture = button_selected
+			music_volume_plus.texture = button_selected
+		OptionRow.SFX_VOLUME:
+			sfx_volume_minus.texture = button_selected
+			sfx_volume_plus.texture = button_selected

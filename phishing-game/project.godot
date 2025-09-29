@@ -19,10 +19,10 @@ config/icon="res://icon.svg"
 
 CrtDisplay="*res://globals/crt_display.tscn"
 SettingsManager="*res://globals/settings_manager.gd"
+SfxManager="*res://globals/sfx_manager.tscn"
+MusicManager="*res://globals/music_manager.tscn"
 GameManager="*res://globals/game_manager.gd"
 HighScoreManager="*res://globals/high_score_manager.gd"
-SfxManager="*res://globals/sfx_manager.gd"
-MusicManager="*res://globals/music_manager.gd"
 
 [display]
 
