@@ -12,22 +12,24 @@ config_version=5
 
 config/name="Phishing Game"
 run/main_scene="uid://c4ma6otpwlva4"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 CrtDisplay="*res://globals/crt_display.tscn"
+SettingsManager="*res://globals/settings_manager.gd"
 GameManager="*res://globals/game_manager.gd"
 HighScoreManager="*res://globals/high_score_manager.gd"
 SfxManager="*res://globals/sfx_manager.gd"
+MusicManager="*res://globals/music_manager.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=512
-window/size/window_width_override=1280
-window/size/window_height_override=1024
+window/size/window_width_override=1920
+window/size/window_height_override=1536
 window/stretch/mode="canvas_items"
 
 [input]

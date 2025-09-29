@@ -28,6 +28,9 @@ func _ready():
 	_load_images("res://assets/phishing/good", false)
 	_load_solutions("res://assets/phishing/bad_solution")
 	images.shuffle()
+	
+	# Continue playing game music (should already be playing from tutorial)
+	MusicManager.play_game_music()
 	_show_next_image()
 	
 	# Connect to timer expired signal

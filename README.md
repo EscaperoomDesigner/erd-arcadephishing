@@ -1,3 +1,2 @@
 # Phishing Game
-
-Godot 4.4
+Uses Godot 4.5

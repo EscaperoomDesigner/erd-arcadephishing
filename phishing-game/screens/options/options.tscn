@@ -1,0 +1,205 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxqe4gs1e577x"]
+
+[ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_kv15f"]
+[ext_resource type="Script" uid="uid://catxi8eg44jxo" path="res://screens/options/options.gd" id="1_ysaa8"]
+[ext_resource type="PackedScene" uid="uid://b7qqt3kh5t4p5" path="res://component/background.tscn" id="3_3swr7"]
+[ext_resource type="Texture2D" uid="uid://b68nqb7pwqghf" path="res://assets/images/options/optionsbutton.png" id="4_cvof0"]
+[ext_resource type="Texture2D" uid="uid://cskc8ytrmispa" path="res://assets/images/menu/button_default.png" id="5_3swr7"]
+
+[node name="Options" type="Control"]
+custom_minimum_size = Vector2(640, 512)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_kv15f")
+script = ExtResource("1_ysaa8")
+
+[node name="Background" parent="." instance=ExtResource("3_3swr7")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -312.0
+offset_top = -226.0
+offset_right = 968.0
+offset_bottom = 798.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(72, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0.803922, 0.541176, 1)
+theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "OPTIES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 360)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(520, 24)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "HOOFDVOLUME"
+vertical_alignment = 1
+
+[node name="MasterProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="MasterVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeMinus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasterVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumePlus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(520, 24)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Muziekvolume"
+vertical_alignment = 1
+
+[node name="MusicProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="MusicVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeMinus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_cvof0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumePlus"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "V0.1.9"
+
+[node name="TerugButton" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 34)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("5_3swr7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/TerugButton"]
+custom_minimum_size = Vector2(128, 34)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Terug"
+horizontal_alignment = 1
+vertical_alignment = 1

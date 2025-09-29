@@ -16,13 +16,13 @@ var yes_selected: Texture2D = preload("res://assets/images/game/button_hover_ja.
 var no_normal: Texture2D = preload("res://assets/images/game/button_nee.png")
 var no_selected: Texture2D = preload("res://assets/images/game/button_hover_nee.png")
 
-var game_time := 12.0  # total game time in seconds
-var elapsed := 0.0
-var countdown_active := false
-var countdown_time := 3.0
-var countdown_elapsed := 0.0
-var time_warning_played := false  # Track if time warning sound has been played
-var countdown_sounds_played := {"3": false, "2": false, "1": false, "GO": false}  # Track which sounds have been played
+var game_time: float = GameManager.game_time  # total game time in seconds
+var elapsed: float = 0.0
+var countdown_active: bool = false
+var countdown_time: float = 3.0
+var countdown_elapsed: float = 0.0
+var time_warning_played: bool = false  # Track if time warning sound has been played
+var countdown_sounds_played: Dictionary = {"3": false, "2": false, "1": false, "GO": false}  # Track which sounds have been played
 
 
 func _ready():

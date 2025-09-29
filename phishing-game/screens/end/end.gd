@@ -29,6 +29,9 @@ func _ready():
 	name_selection_complete = false  # Reset the flag
 	score_label.text = GameManager.get_score()
 	
+	# Continue playing game music for end screen
+	MusicManager.play_game_music()
+	
 	# Check if this is a high score
 	is_high_score = GameManager.check_high_score()
 	

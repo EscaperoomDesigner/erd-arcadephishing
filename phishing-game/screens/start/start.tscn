@@ -20,8 +20,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0w6la")
 script = ExtResource("1_1g8oq")
-title_up_down_speed = null
-title_up_down_distance = null
 
 [node name="BackgroundRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(640, 512)
@@ -64,9 +62,10 @@ expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 8
 
 [node name="VBoxContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
@@ -121,10 +120,62 @@ text = "2p"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VBoxContainer2" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="OnePlayerMode" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_0el08")
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/OnePlayerMode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 16
+text = "1 SPELER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TwoPlayerMode" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_0el08")
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/TwoPlayerMode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 16
+text = "2 SPELER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HighscoresButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(208, 34)
+custom_minimum_size = Vector2(192, 34)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -141,6 +192,29 @@ size_flags_horizontal = 4
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 16
 text = "Highscores"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(192, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_0el08")
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/OptionsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 16
+text = "opties"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -180,7 +254,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 12
-text = "OM MODE TE KIEZEN"
+text = "OM TE SELECTEREN"
 horizontal_alignment = 1
 vertical_alignment = 1
 

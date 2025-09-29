@@ -1,6 +1,6 @@
 extends Control
 
-@onready var vbox_container = $BackgroundRect/MarginContainer/VBoxContainer
+@onready var vbox_container = %ScoresVBox
 @onready var start_packed_scene: PackedScene = load("uid://c4ma6otpwlva4")
 
 const SCORE_HBOX_SCENE = preload("res://component/score_hbox/score_hbox.tscn")
@@ -15,6 +15,9 @@ func _ready():
 		print("Failed to connect to new_high_score signal")
 	
 	display_high_scores()
+	
+	# Play main menu music for highscore screen
+	MusicManager.play_main_menu_music()
 
 	# Wait for CRT transition to complete before allowing input
 	while CrtDisplay._transitioning:

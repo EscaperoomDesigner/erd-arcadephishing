@@ -20,6 +20,9 @@ func _ready():
 	transition_in_progress = false
 	waiting_for_crt = false
 	phishing_timer_started = false
+	
+	# Start game music for tutorial
+	MusicManager.play_game_music()
 
 func _process(delta):
 	elapsed += delta

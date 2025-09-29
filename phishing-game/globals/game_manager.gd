@@ -16,6 +16,7 @@ const END_PACKED_SCENE: PackedScene = preload("uid://bomsy4dsoap7a")
 
 var lives: int = 3
 var score: int = 0
+var game_time: float = 120.0 # Total game time in seconds
 var game_running: bool = false
 var pending_game_over: bool = false 
 var input_lock: bool = false

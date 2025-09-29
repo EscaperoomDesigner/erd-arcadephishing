@@ -8,6 +8,9 @@ extends Control
 @onready var one_player_button: TextureRect = %OnePlayerButton
 @onready var two_player_button: TextureRect = %TwoPlayerButton
 @onready var highscores_button: TextureRect = %HighscoresButton
+@onready var two_player_mode: TextureRect = %TwoPlayerMode
+@onready var one_player_mode: TextureRect = %OnePlayerMode
+@onready var options_button: TextureRect = %OptionsButton
 
 var base_y: float
 var time: float = 0.0
@@ -26,7 +29,7 @@ var waiting_for_crt := false         # Flag to wait until fade completes
 var scene_ready := false             # Prevent immediate input on scene load
 
 # Navigation state
-enum MenuRow { PLAYER_SELECT, HIGH_SCORES }
+enum MenuRow { PLAYER_SELECT, HIGH_SCORES, OPTIONS }
 var current_row: MenuRow = MenuRow.PLAYER_SELECT
 var selected_player_mode: int = 1  # 1 or 2 players
 
@@ -34,6 +37,9 @@ var selected_player_mode: int = 1  # 1 or 2 players
 func _ready():
 	base_y = title.position.y
 	_update_button_display()
+	
+	# Start main menu music
+	MusicManager.play_main_menu_music()
 	
 	# Wait for CRT transition to complete before allowing input
 	while CrtDisplay._transitioning:
@@ -61,11 +67,23 @@ func _process(delta):
 
 	# Vertical navigation (UP/DOWN)
 	if Input.is_action_just_pressed("phishing_up"):
-		current_row = MenuRow.PLAYER_SELECT
+		match current_row:
+			MenuRow.HIGH_SCORES:
+				current_row = MenuRow.PLAYER_SELECT
+			MenuRow.OPTIONS:
+				current_row = MenuRow.HIGH_SCORES
+			MenuRow.PLAYER_SELECT:
+				current_row = MenuRow.OPTIONS  # Wrap to bottom
 		_update_button_display()
 		SfxManager.play_ui_hover()
 	elif Input.is_action_just_pressed("phishing_down"):
-		current_row = MenuRow.HIGH_SCORES
+		match current_row:
+			MenuRow.PLAYER_SELECT:
+				current_row = MenuRow.HIGH_SCORES
+			MenuRow.HIGH_SCORES:
+				current_row = MenuRow.OPTIONS
+			MenuRow.OPTIONS:
+				current_row = MenuRow.PLAYER_SELECT  # Wrap to top
 		_update_button_display()
 		SfxManager.play_ui_hover()
 
@@ -83,31 +101,42 @@ func _process(delta):
 	# Selection (CONFIRM)
 	if Input.is_action_just_pressed("phishing_confirm"):
 		SfxManager.play_ui_select()
-		if current_row == MenuRow.HIGH_SCORES:
-			_show_high_scores()
-		else:
-			_start_game()
+		match current_row:
+			MenuRow.PLAYER_SELECT:
+				_start_game()
+			MenuRow.HIGH_SCORES:
+				_show_high_scores()
+			MenuRow.OPTIONS:
+				_show_options()
 
 func _update_button_display():
 	# Reset all buttons to default state
-	one_player_button.texture = one_player_button_default
-	two_player_button.texture = two_player_button_default
+	one_player_mode.texture = button_default
+	two_player_mode.texture = button_default
 	highscores_button.texture = button_default
+	options_button.texture = button_default
 	
 	# Update based on current selection
-	if current_row == MenuRow.HIGH_SCORES:
-		# High scores row selected
-		highscores_button.texture = button_selected
-	else:
-		# Player select row selected
-		if selected_player_mode == 1:
-			one_player_button.texture = one_player_button_selected
-		else:
-			two_player_button.texture = two_player_button_selected
+	match current_row:
+		MenuRow.PLAYER_SELECT:
+			# Player select row selected - show selected player mode
+			if selected_player_mode == 1:
+				one_player_mode.texture = button_selected
+			else:
+				two_player_mode.texture = button_selected
+		MenuRow.HIGH_SCORES:
+			# High scores row selected
+			highscores_button.texture = button_selected
+		MenuRow.OPTIONS:
+			# Options row selected
+			options_button.texture = button_selected
 
 
 func _show_high_scores():
 	_start_highscore_transition()
+
+func _show_options():
+	_start_options_transition()
 
 func _start_highscore_transition():
 	if transition_in_progress:
@@ -117,8 +146,20 @@ func _start_highscore_transition():
 	waiting_for_crt = true
 	
 	# Load the high score scene
-	var highscore_scene = preload("res://screens/highscore/highscore.tscn")
+	var highscore_scene = preload("uid://bvw3h2higqq3h")
 	CrtDisplay.fade_to_packed(highscore_scene)
+
+func _start_options_transition():
+	if transition_in_progress:
+		return
+		
+	transition_in_progress = true
+	waiting_for_crt = true
+	
+	# Load the options scene
+	var options_scene = preload("uid://dxqe4gs1e577x")
+	CrtDisplay.fade_to_packed(options_scene)
+
 
 func _start_game():
 	# Prevent multiple calls if game start is blocked

@@ -1,8 +1,6 @@
 extends Node
 
-# SFX Manager - Global singleton for handling sound effects across all screens
-# Add this to AutoLoad in Project Settings as "SfxManager"
-
+# SFX Manager - Global
 # Audio players for different types of sounds
 @onready var ui_player: AudioStreamPlayer = AudioStreamPlayer.new()
 @onready var game_player: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -24,8 +22,8 @@ var beep_down_sound: AudioStream = preload("res://assets/sounds/effectsold/beepd
 
 # Volume settings (0.0 to 1.0)
 var master_volume: float = 1.0
-var sfx_volume: float = 0.7
-var ui_volume: float = 0.5
+var sfx_volume: float = 1.5
+var ui_volume: float = 3.0
 
 func _ready():
 	# Add audio players to the scene tree
