@@ -1,8 +1,7 @@
 extends Control
 
 
-@export var min_display_time: float = 1.0     # seconds
-@export var max_display_time: float = 5.0    # seconds
+
 @export var alphabet := " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"  # letters to cycle
 @export var max_chars := 8  # number of character slots
 
@@ -11,6 +10,7 @@ extends Control
 @onready var red_arrow_up: Texture2D = preload("res://assets/images/end/arrow_up.png")
 @onready var red_arrow_down: Texture2D = preload("res://assets/images/end/arrow_down.png")
 @onready var start_packed_scene: PackedScene = load("uid://c4ma6otpwlva4")
+
 var transition_in_progress := false
 var elapsed := 0.0
 var can_transition := false
@@ -20,7 +20,8 @@ var rows: Array = []        # holds each VBoxContainer row (tex1, label, tex2)
 var current_index := 0      # which character slot we're editing
 var char_index := 0         # current letter in alphabet for this slot
 var is_high_score := false
-
+var min_display_time: float = 1.0     # seconds
+var max_display_time: float = GameManager.end_time    # seconds
 
 func _ready():
 	elapsed = 0.0

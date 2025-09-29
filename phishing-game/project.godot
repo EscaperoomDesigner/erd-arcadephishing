@@ -23,6 +23,7 @@ SettingsManager="*res://globals/settings_manager.gd"
 SfxManager="*res://globals/sfx_manager.tscn"
 MusicManager="*res://globals/music_manager.tscn"
 HighScoreManager="*res://globals/high_score_manager.gd"
+PhishingResourceManager="*res://globals/phishing_resource_manager.gd"
 
 [display]
 
