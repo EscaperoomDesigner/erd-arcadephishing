@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://shf7u020msui"
-path="res://.godot/imported/whistle.wav-5ce10bb82d80a084c116971385495a58.sample"
+path="res://.godot/imported/whistle.wav-377d5622cd579028204704cc4887f999.sample"
 
 [deps]
 
-source_file="res://assets/sounds/effects/whistle.wav"
-dest_files=["res://.godot/imported/whistle.wav-5ce10bb82d80a084c116971385495a58.sample"]
+source_file="res://assets/sounds/effectsold/whistle.wav"
+dest_files=["res://.godot/imported/whistle.wav-377d5622cd579028204704cc4887f999.sample"]
 
 [params]
 

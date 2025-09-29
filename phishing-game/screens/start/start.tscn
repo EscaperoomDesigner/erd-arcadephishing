@@ -20,6 +20,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0w6la")
 script = ExtResource("1_1g8oq")
+title_up_down_speed = null
+title_up_down_distance = null
 
 [node name="BackgroundRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(640, 512)
@@ -161,7 +163,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 12
-text = "MOVE"
+text = "BEWEEG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -178,7 +180,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 12
-text = "TO SELECT MODE"
+text = "OM MODE TE KIEZEN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -207,7 +209,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 12
-text = "PRESS"
+text = "DRUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -224,7 +226,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
 theme_override_font_sizes/font_size = 12
-text = "TO CONFIRM"
+text = "OM TE BEVESTIGEN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -234,4 +236,4 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 12
-text = "V0.1.0"
+text = "V0.1.9"

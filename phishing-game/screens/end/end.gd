@@ -2,8 +2,8 @@ extends Control
 
 
 @export var min_display_time: float = 1.0     # seconds
-@export var max_display_time: float = 30.0    # seconds
-@export var alphabet := " ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # letters to cycle
+@export var max_display_time: float = 5.0    # seconds
+@export var alphabet := " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"  # letters to cycle
 @export var max_chars := 8  # number of character slots
 
 @onready var timer_label: Label = %TimerLabel
@@ -68,7 +68,11 @@ func _process(delta):
 
 	# Automatically transition after max_display_time
 	if elapsed >= max_display_time and not transition_in_progress:
-		_start_transition()
+		# Force complete name selection before transitioning to ensure high score is saved
+		if not name_selection_complete:
+			_finish_name_selection()
+		else:
+			_start_transition()
 
 	# Block input while transitioning or if name selection is complete
 	if transition_in_progress or name_selection_complete:
@@ -117,10 +121,21 @@ func _finish_name_selection():
 	name_selection_complete = true
 	print("Name selection done!")
 	var chosen_name = ""
-	# Only iterate through available rows, don't assume max_chars
-	for i in range(min(rows.size(), max_chars)):
+	
+	# If we're in the middle of selecting a character (timer ran out), 
+	# include the current character being displayed
+	var slots_to_process = current_index
+	if current_index < rows.size() and current_index < max_chars:
+		# Include the current character if it's being displayed
+		if rows[current_index]["label"].text != "":
+			slots_to_process = current_index + 1
+	
+	# Build name from completed slots
+	for i in range(min(slots_to_process, min(rows.size(), max_chars))):
 		if i < rows.size():
-			chosen_name += rows[i]["label"].text
+			var char_text = rows[i]["label"].text
+			if char_text != "":
+				chosen_name += char_text
 	
 	GameManager.player_name = chosen_name.strip_edges()
 	

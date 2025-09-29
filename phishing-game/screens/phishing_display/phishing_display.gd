@@ -13,6 +13,7 @@ var elapsed: float = 0.0
 var last_answer_time: float = -999.0
 var is_busy: bool = false
 var showing_solution: bool = false
+var handling_last_life: bool = false  # Track if we're handling last life scenario
 
 var candidate_stick: String = ""   # "left" or "right"
 var confirmed_stick: String = ""
@@ -113,15 +114,24 @@ func _check_answer(ans: bool):
 
 	if ans == current_image.is_phish:
 		GameManager.add_score(1)
+		SfxManager.play_correct_answer()
 		_animate_out(_show_next_image)
 		print("goed")
 	else:
 		# Wrong answer: decrement lives
-		GameManager.lose_life()
+		# Check if we are on the last life and will show solution
+		var will_show_solution = (GameManager.lives == 1 and current_image.is_phish and bad_solutions.has(current_image.id))
+		
+		
+		GameManager.lose_life(will_show_solution)
 		print("fout")
+		if GameManager.lives >= 1:
+			SfxManager.play_wrong_answer()
 
 		# Check if we are on the last life
 		if GameManager.lives <= 0:
+			SfxManager.play_life_lost()
+			handling_last_life = true  # Mark that we're handling last life
 			if current_image.is_phish and bad_solutions.has(current_image.id):
 				# Show solution first, then fade to end
 				_show_solution(current_image.id, true)
@@ -143,6 +153,8 @@ func _show_solution(id: String, fade_to_end := false):
 
 	is_busy = true
 	showing_solution = true
+	if fade_to_end:
+		GameManager.input_lock = true  # Lock input when showing solution on last life
 	content.texture = load(bad_solutions[id])
 
 	# Wait while showing solution
@@ -152,6 +164,11 @@ func _show_solution(id: String, fade_to_end := false):
 	showing_solution = false
 
 	if fade_to_end:
+		GameManager.input_lock = false  # Unlock input before game over
+		# If we were pending a game over, trigger it now
+		if GameManager.pending_game_over:
+			GameManager.pending_game_over = false
+			GameManager.emit_signal("game_over")
 		_fade_to_end()
 	else:
 		_animate_out(_show_next_image)
@@ -166,6 +183,7 @@ func _fade_to_end():
 	t.tween_callback(func():
 		is_busy = false
 		showing_solution = false
+		handling_last_life = false  # Reset the flag
 		GameManager.game_running = false
 		GameManager.input_lock = false  # Ensure input is unlocked
 		CrtDisplay.fade_to_packed(GameManager.END_PACKED_SCENE)
@@ -185,6 +203,10 @@ func _animate_out(next_cb):
 
 
 func _on_timer_expired():
+	# If we're already handling last life scenario, don't interfere
+	if handling_last_life:
+		return
+	
 	# When timer expires, check if solution is showing
 	if showing_solution:
 		# Wait for solution to finish, then fade to end
@@ -194,3 +216,7 @@ func _on_timer_expired():
 	else:
 		# No solution showing, immediately fade to end
 		_fade_to_end()
+
+
+func is_showing_solution() -> bool:
+	return showing_solution and handling_last_life

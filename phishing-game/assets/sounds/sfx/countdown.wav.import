@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bswa518i2m8mh"
-path="res://.godot/imported/beepup.wav-8ea1b5f15443cc7d5a431f26ab473977.sample"
+uid="uid://0oento8s52rg"
+path="res://.godot/imported/countdown.wav-6eea1366b796b750df1125afce740755.sample"
 
 [deps]
 
-source_file="res://assets/sounds/effects/beepup.wav"
-dest_files=["res://.godot/imported/beepup.wav-8ea1b5f15443cc7d5a431f26ab473977.sample"]
+source_file="res://assets/sounds/sfx/countdown.wav"
+dest_files=["res://.godot/imported/countdown.wav-6eea1366b796b750df1125afce740755.sample"]
 
 [params]
 

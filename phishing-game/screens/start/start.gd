@@ -63,21 +63,26 @@ func _process(delta):
 	if Input.is_action_just_pressed("phishing_up"):
 		current_row = MenuRow.PLAYER_SELECT
 		_update_button_display()
+		SfxManager.play_ui_hover()
 	elif Input.is_action_just_pressed("phishing_down"):
 		current_row = MenuRow.HIGH_SCORES
 		_update_button_display()
+		SfxManager.play_ui_hover()
 
 	# Horizontal navigation (LEFT/RIGHT) - only in player select row
 	if current_row == MenuRow.PLAYER_SELECT:
 		if Input.is_action_just_pressed("phishing_yes"):  # LEFT
 			selected_player_mode = 1
 			_update_button_display()
+			SfxManager.play_ui_hover()
 		elif Input.is_action_just_pressed("phishing_no"):  # RIGHT
 			selected_player_mode = 2
 			_update_button_display()
+			SfxManager.play_ui_hover()
 
 	# Selection (CONFIRM)
 	if Input.is_action_just_pressed("phishing_confirm"):
+		SfxManager.play_ui_select()
 		if current_row == MenuRow.HIGH_SCORES:
 			_show_high_scores()
 		else:

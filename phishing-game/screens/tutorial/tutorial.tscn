@@ -14,6 +14,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_i3p7n")
 script = ExtResource("1_xl6kk")
+min_display_time = null
+max_display_time = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(640, 360)

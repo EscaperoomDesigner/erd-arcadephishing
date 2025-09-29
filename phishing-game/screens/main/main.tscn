@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://75uq0a777qf6"]
+[gd_scene load_steps=14 format=3 uid="uid://75uq0a777qf6"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_h47hb"]
 [ext_resource type="Script" uid="uid://bvfch1q08ekis" path="res://screens/main/main.gd" id="1_j5age"]
 [ext_resource type="Texture2D" uid="uid://b2kbal1i716gq" path="res://assets/images/game/heart.png" id="3_4eq7x"]
 [ext_resource type="Texture2D" uid="uid://bxvjgkaauspkf" path="res://assets/images/game/scrn.png" id="3_qne8x"]
 [ext_resource type="Texture2D" uid="uid://dfgnuk0wurkug" path="res://assets/images/game/folder.png" id="4_126cu"]
+[ext_resource type="FontFile" uid="uid://skjmmkjltoo0" path="res://assets/fonts/ARCADE_I.TTF" id="4_i6tjv"]
 [ext_resource type="Texture2D" uid="uid://c4aoy3gtw5cno" path="res://assets/images/game/bttm.png" id="5_126cu"]
 [ext_resource type="Texture2D" uid="uid://b2jgevp66os83" path="res://assets/images/game/recyclebin.png" id="5_j6p4r"]
 [ext_resource type="Texture2D" uid="uid://c1caaj7wbnu50" path="res://assets/images/game/floppydisk.png" id="5_vhluw"]
@@ -80,6 +81,14 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
+[node name="CountdownLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_i6tjv")
+theme_override_font_sizes/font_size = 120
+text = "3"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
@@ -132,7 +141,8 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.270588, 0.74902, 0.243137, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 4
@@ -198,13 +208,15 @@ texture = ExtResource("3_4eq7x")
 stretch_mode = 2
 
 [node name="Question" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
-custom_minimum_size = Vector2(280, 16)
+custom_minimum_size = Vector2(288, 32)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
-text = "IS DIT EEN PHISHING MAIL?"
+text = "is dit een phishing mail?"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Yes" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
 unique_name_in_owner = true
@@ -232,7 +244,7 @@ stretch_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "2:00"

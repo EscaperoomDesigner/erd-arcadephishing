@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dc678bpovi5g"
-path="res://.godot/imported/beepdwn.wav-06015705827b68e0c335d94bc3cdbaa8.sample"
+uid="uid://deqfm4ua3q2in"
+path="res://.godot/imported/cash.wav-f54d191decaa49925cff7797fae37f32.sample"
 
 [deps]
 
-source_file="res://assets/sounds/effects/beepdwn.wav"
-dest_files=["res://.godot/imported/beepdwn.wav-06015705827b68e0c335d94bc3cdbaa8.sample"]
+source_file="res://assets/sounds/effectsold/cash.wav"
+dest_files=["res://.godot/imported/cash.wav-f54d191decaa49925cff7797fae37f32.sample"]
 
 [params]
 

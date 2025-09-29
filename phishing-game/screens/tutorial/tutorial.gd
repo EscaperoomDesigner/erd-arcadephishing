@@ -49,6 +49,7 @@ func _process(delta):
 	# Detect input 
 	if can_transition && not GameManager.input_lock:
 		if Input.is_action_just_pressed("phishing_confirm"):
+			SfxManager.play_ui_select()
 			_start_transition()
 
 func _start_transition():
@@ -58,19 +59,10 @@ func _start_transition():
 	waiting_for_crt = true
 	GameManager.input_lock = true
 	
-	
 	CrtDisplay.fade_to_packed(GameManager.MAIN_PACKED_SCENE)
-
-	# Only start phishing display if it hasn't started
-	if not phishing_timer_started:
-		phishing_timer_started = true
-		
-		# Show phishing display after 3s delay
-		CrtDisplay.show_unfiltered_after_delay(GameManager.PHISHING_DISPLAY_PACKED_SCENE, 3.0)
-
-		# Unlock input after 3s + tween time (match show_unfiltered_after_delay)
-		var total_delay = 3.0 + 0.85  # delay + tween_time
-		var timer = get_tree().create_timer(total_delay)
-		timer.timeout.connect(func():
-			GameManager.input_lock = false  # <-- unlock input
-		)
+	
+	# Unlock input after transition
+	var timer = get_tree().create_timer(1.0)
+	timer.timeout.connect(func():
+		GameManager.input_lock = false
+	)

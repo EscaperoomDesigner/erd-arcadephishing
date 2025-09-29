@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bw50daknjo7sy"
-path="res://.godot/imported/time.wav-69c70d9e4e10e1eda309d915a31ec37c.sample"
+uid="uid://dlglyx0ogygmt"
+path="res://.godot/imported/UIselect.wav-bb20adf99eafc2d43c86d3a3b1627d65.sample"
 
 [deps]
 
-source_file="res://assets/sounds/effects/time.wav"
-dest_files=["res://.godot/imported/time.wav-69c70d9e4e10e1eda309d915a31ec37c.sample"]
+source_file="res://assets/sounds/sfx/UIselect.wav"
+dest_files=["res://.godot/imported/UIselect.wav-bb20adf99eafc2d43c86d3a3b1627d65.sample"]
 
 [params]
 
