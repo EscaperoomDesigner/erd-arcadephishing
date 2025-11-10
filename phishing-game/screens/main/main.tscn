@@ -182,7 +182,7 @@ alignment = 1
 
 [node name="Heart1" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 32)
+custom_minimum_size = Vector2(24, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -191,7 +191,7 @@ stretch_mode = 2
 
 [node name="Heart2" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 32)
+custom_minimum_size = Vector2(24, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -200,7 +200,7 @@ stretch_mode = 2
 
 [node name="Heart3" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 32)
+custom_minimum_size = Vector2(24, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

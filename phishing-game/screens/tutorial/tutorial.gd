@@ -1,12 +1,10 @@
 extends Control
 
-
-@export var min_display_time := 1.0     # seconds
-@export var max_display_time := 15.0    # seconds
-
 @onready var timer_label: Label = %TimerLabel
 
 
+var min_display_time := 1.5     # seconds
+var max_display_time := GameManager.tutorial_time    # seconds
 
 var transition_in_progress: bool = false
 var waiting_for_crt: bool = false

@@ -1,12 +1,25 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bxmym73447kmx"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bxmym73447kmx"]
 
 [ext_resource type="Texture2D" uid="uid://cbdaeyyawi78i" path="res://assets/images/options/panelcontainer.png" id="1_7ct1h"]
 [ext_resource type="FontFile" uid="uid://cuukm7fqr8w3l" path="res://assets/fonts/ARCADE_N.TTF" id="1_d4nwg"]
+[ext_resource type="Texture2D" uid="uid://dh1truemdwfmq" path="res://assets/images/options/progressbar_border.png" id="3_b751m"]
+[ext_resource type="Texture2D" uid="uid://dwn3ui2b0u0d" path="res://assets/images/options/progressbar_fill.png" id="4_owntx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d4nwg"]
 texture = ExtResource("1_7ct1h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aaf3v"]
+texture = ExtResource("3_b751m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp2uj"]
+texture = ExtResource("4_owntx")
+axis_stretch_horizontal = 1
+region_rect = Rect2(0, 0, 32, 32)
 
 [resource]
 default_font = ExtResource("1_d4nwg")
 default_font_size = 22
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_d4nwg")
+ProgressBar/fonts/font = ExtResource("1_d4nwg")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_aaf3v")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_yp2uj")

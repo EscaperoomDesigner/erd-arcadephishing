@@ -72,19 +72,33 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
 text = "HOOFDVOLUME"
 vertical_alignment = 1
 
 [node name="MasterProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 32)
+custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
-value = 0.5
+value = 1.0
+show_percentage = false
+
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MasterVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
 unique_name_in_owner = true
@@ -130,19 +144,33 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
 text = "Muziekvolume"
 vertical_alignment = 1
 
 [node name="MusicProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 32)
+custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 value = 0.5
+show_percentage = false
+
+[node name="MusicVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MusicVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
 unique_name_in_owner = true
@@ -181,6 +209,7 @@ vertical_alignment = 1
 [node name="SfxVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 alignment = 1
@@ -188,19 +217,33 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 18
 text = "SFXVOLUME"
 vertical_alignment = 1
 
 [node name="SfxProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 32)
+custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 value = 0.5
+show_percentage = false
+
+[node name="SfxVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SfxVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
 unique_name_in_owner = true

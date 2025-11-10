@@ -11,16 +11,12 @@ func _ready():
 	print("PhishingResourceManager initialized")
 
 func load_all_resources():
-	if is_initialized:
-		print("Resources already loaded")
-		return
-	
 	print("PhishingResourceManager: Loading all phishing resources...")
 	images.clear()
 	bad_solutions.clear()
 	
-	# Get the base path for external phishing folder
-	var base_path = _get_external_phishing_path()
+	# Get the base path based on whether we're in editor or exported
+	var base_path = _get_phishing_path()
 	print("Using phishing folder base path: ", base_path)
 	
 	_load_images(base_path + "/bad", true)
@@ -31,7 +27,11 @@ func load_all_resources():
 	print("Total solutions loaded: ", bad_solutions.size())
 	
 	if images.is_empty():
-		var error_msg = "No images were loaded! Please make sure there's a 'phishing' folder next to the game executable with phishing/bad/, phishing/good/, and phishing/bad_solution/ subfolders containing PNG images."
+		var error_msg = "No images were loaded! Please check phishing folder structure."
+		if OS.has_feature("editor"):
+			error_msg = "No images found in assets/phishing/. Please make sure assets/phishing/bad/, assets/phishing/good/, and assets/phishing/bad_solution/ contain PNG images."
+		else:
+			error_msg = "No images were loaded! Please make sure there's a 'phishing' folder next to the game executable with phishing/bad/, phishing/good/, and phishing/bad_solution/ subfolders containing PNG images."
 		print("ERROR: ", error_msg)
 		emit_signal("loading_failed", error_msg)
 		return
@@ -53,6 +53,13 @@ func has_solution(id: String) -> bool:
 func get_solution_info(id: String) -> Dictionary:
 	return bad_solutions.get(id, {})
 
+func reset_resources():
+	"""Reset the resource manager so it can reload resources for the next game"""
+	print("PhishingResourceManager: Resetting resources for next game")
+	is_initialized = false
+	images.clear()
+	bad_solutions.clear()
+
 func load_texture(path: String, is_external: bool) -> Texture2D:
 	if is_external:
 		# Load external file
@@ -68,7 +75,13 @@ func load_texture(path: String, is_external: bool) -> Texture2D:
 		# Load internal resource
 		return ResourceLoader.load(path)
 
-func _get_external_phishing_path() -> String:
+func _get_phishing_path() -> String:
+	# Check if we're running in the Godot editor
+	if OS.has_feature("editor"):
+		print("Running in Godot editor - using internal assets")
+		return "res://assets/phishing"
+	
+	# We're in an exported build - look for external phishing folder
 	var executable_path = OS.get_executable_path()
 	var executable_dir = executable_path.get_base_dir()
 	var phishing_path = executable_dir + "/phishing"

@@ -18,6 +18,7 @@ var lives: int = 3
 var score: int = 0
 var game_time: float = 120.0 # Total game time in seconds
 var end_time: float = 45.0  # End screen display time in seconds
+var tutorial_time: float = 25.0  # Tutorial screen display time in seconds
 var game_running: bool = false
 var pending_game_over: bool = false 
 var input_lock: bool = false
@@ -71,6 +72,9 @@ func reset_game():
 	player_name = ""
 	timer_ran_out = false
 	start_game_blocked = false  # Reset the start game block
+	
+	# Reset phishing resources so they can be reloaded for the next game
+	PhishingResourceManager.reset_resources()
 
 
 # Debug function to set score for testing

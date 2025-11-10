@@ -11,7 +11,9 @@ extends Control
 @onready var sfx_progress_bar: ProgressBar = %SfxProgressBar
 @onready var sfx_volume_minus: TextureRect = %SfxVolumeMinus
 @onready var sfx_volume_plus: TextureRect = %SfxVolumePlus
-
+@onready var master_volume_label: Label = %MasterVolumeLabel
+@onready var music_volume_label: Label = %MusicVolumeLabel
+@onready var sfx_volume_label: Label = %SfxVolumeLabel
 
 # Confirmation popup elements (assuming these exist in the scene)
 @onready var confirmation_popup: Control = %ConfirmPanel
@@ -68,6 +70,7 @@ var volume_controls = {
 	}
 }
 
+
 func _ready():
 	# Load settings from SettingsManager
 	_load_settings_from_manager()
@@ -94,6 +97,7 @@ func _ready():
 	# Small delay to prevent immediate input after scene transition
 	await get_tree().create_timer(0.5).timeout
 	scene_ready = true
+
 
 func _process(_delta):
 	if waiting_for_crt:
@@ -133,6 +137,7 @@ func _process(_delta):
 			OptionRow.BACK:
 				_go_back_to_start()
 
+
 func _update_button_display():
 	# Reset all buttons to default state
 	_reset_all_buttons()
@@ -152,39 +157,51 @@ func _update_button_display():
 		OptionRow.BACK:
 			terug_button.texture = terug_button_selected
 
+
+func _get_settings_manager() -> Node:
+	var settings_manager = get_node_or_null("/root/SettingsManager")
+	if not settings_manager:
+		print("Warning: SettingsManager not found!")
+	return settings_manager
+
+
 func _apply_master_volume():
 	master_volume_progress.value = master_volume_level
-	# Apply master volume to SfxManager or AudioServer
-	# You might want to implement this in SfxManager
-	var settings_manager = get_node_or_null("/root/SettingsManager")
+	_update_volume_labels()
+	var settings_manager = _get_settings_manager()
 	if settings_manager:
 		settings_manager.set_master_volume(master_volume_level)
 	print("Master volume set to: ", master_volume_level)
 
+
 func _apply_music_volume():
 	music_volume_progress.value = music_volume_level
-	var settings_manager = get_node_or_null("/root/SettingsManager")
+	_update_volume_labels()
+	var settings_manager = _get_settings_manager()
 	if settings_manager:
 		settings_manager.set_music_volume(music_volume_level)
 	print("Music volume set to: ", music_volume_level)
 
+
 func _apply_sfx_volume():
 	sfx_progress_bar.value = sfx_volume_level
-	var settings_manager = get_node_or_null("/root/SettingsManager")
+	_update_volume_labels()
+	var settings_manager = _get_settings_manager()
 	if settings_manager:
 		settings_manager.set_sfx_volume(sfx_volume_level)
 	print("SFX volume set to: ", sfx_volume_level)
 
+
 func _load_settings_from_manager():
-	# Load settings from the global SettingsManager
-	var settings_manager = get_node_or_null("/root/SettingsManager")
+	var settings_manager = _get_settings_manager()
 	if settings_manager:
 		master_volume_level = settings_manager.get_master_volume()
 		music_volume_level = settings_manager.get_music_volume()
 		sfx_volume_level = settings_manager.get_sfx_volume()
 		print("Settings loaded from SettingsManager")
 	else:
-		print("SettingsManager not found, using defaults")
+		print("Using default settings")
+
 
 func _handle_confirmation_input():
 	# Horizontal navigation in confirmation popup (LEFT/RIGHT)
@@ -204,6 +221,7 @@ func _handle_confirmation_input():
 			_reset_highscores()
 		_hide_confirmation_popup()
 
+
 func _show_highscore_reset_confirmation():
 	showing_confirmation = true
 	confirmation_selection = 0  # Default to "Nee"
@@ -211,11 +229,13 @@ func _show_highscore_reset_confirmation():
 		confirmation_popup.visible = true
 	_update_confirmation_display()
 
+
 func _hide_confirmation_popup():
 	showing_confirmation = false
 	if confirmation_popup:
 		confirmation_popup.visible = false
 	_update_button_display()
+
 
 func _update_confirmation_display():
 	if not showing_confirmation:
@@ -235,6 +255,7 @@ func _update_confirmation_display():
 		if confirmation_ja_button:
 			confirmation_ja_button.texture = terug_button_selected
 
+
 func _reset_highscores():
 	# Reset the highscores using HighScoreManager
 	if HighScoreManager:
@@ -242,6 +263,7 @@ func _reset_highscores():
 		print("Highscores have been reset!")
 	else:
 		print("HighScoreManager not found!")
+
 
 func _go_back_to_start():
 	if transition_in_progress:
@@ -253,7 +275,8 @@ func _go_back_to_start():
 	# Load the start scene
 	CrtDisplay.fade_to_packed(start_packed_scene)
 
-# Helper functions for cleaner code
+
+
 func _setup_volume_controls():
 	volume_controls[OptionRow.MASTER_VOLUME].level = master_volume_level
 	volume_controls[OptionRow.MASTER_VOLUME].progress_bar = master_volume_progress
@@ -270,12 +293,16 @@ func _setup_volume_controls():
 	volume_controls[OptionRow.SFX_VOLUME].minus_button = sfx_volume_minus
 	volume_controls[OptionRow.SFX_VOLUME].plus_button = sfx_volume_plus
 
+
 func _initialize_progress_bars():
 	for row in volume_controls:
 		var control = volume_controls[row]
 		if control.progress_bar:
 			control.progress_bar.max_value = 10
 			control.progress_bar.value = control.level
+
+	_update_volume_labels()
+
 
 func _navigate_vertical(direction: int):
 	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
@@ -291,6 +318,7 @@ func _navigate_vertical(direction: int):
 	current_row = options[current_index]
 	_update_button_display()
 	SfxManager.play_ui_hover()
+
 
 func _adjust_volume(direction: int):
 	if current_row in volume_controls:
@@ -308,6 +336,7 @@ func _adjust_volume(direction: int):
 		_update_button_display()
 		SfxManager.play_ui_hover()
 
+
 func _reset_all_buttons():
 	master_volume_minus.texture = button_default
 	master_volume_plus.texture = button_default
@@ -318,6 +347,7 @@ func _reset_all_buttons():
 	if highscore_reset_button:
 		highscore_reset_button.texture = terug_button_default
 	terug_button.texture = terug_button_default
+
 
 func _highlight_volume_controls(row: OptionRow):
 	match row:
@@ -330,3 +360,12 @@ func _highlight_volume_controls(row: OptionRow):
 		OptionRow.SFX_VOLUME:
 			sfx_volume_minus.texture = button_selected
 			sfx_volume_plus.texture = button_selected
+
+
+func _update_volume_labels():
+	if master_volume_label:
+		master_volume_label.text = str(master_volume_level)
+	if music_volume_label:
+		music_volume_label.text = str(music_volume_level)
+	if sfx_volume_label:
+		sfx_volume_label.text = str(sfx_volume_level)
