@@ -110,7 +110,7 @@ func get_top_score() -> int:
 # Get a formatted string of high scores for display
 func get_high_scores_text() -> String:
 	if high_scores.is_empty():
-		return "No high scores yet!"
+		return "Nog geen high scores beschikbaar!"
 	
 	var text = ""
 	var display_count = min(5, min(MAX_HIGH_SCORES_DISPLAY, high_scores.size()))

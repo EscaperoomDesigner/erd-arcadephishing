@@ -71,7 +71,7 @@ func display_high_scores():
 	if max_display == 0:
 		# Show "No scores yet" message
 		var no_scores_label = Label.new()
-		no_scores_label.text = "No high scores yet!"
+		no_scores_label.text = "Nog geen high scores beschikbaar!"
 		no_scores_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		no_scores_label.add_theme_font_size_override("font_size", 16)
 		no_scores_label.add_theme_color_override("font_color", Color.WHITE)

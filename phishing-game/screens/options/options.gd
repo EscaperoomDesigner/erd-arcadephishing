@@ -14,6 +14,7 @@ extends Control
 @onready var master_volume_label: Label = %MasterVolumeLabel
 @onready var music_volume_label: Label = %MusicVolumeLabel
 @onready var sfx_volume_label: Label = %SfxVolumeLabel
+@onready var fullscreen_button: TextureRect = %FullscreenButton
 
 # Confirmation popup elements (assuming these exist in the scene)
 @onready var confirmation_popup: Control = %ConfirmPanel
@@ -33,7 +34,7 @@ var waiting_for_crt := false         # Flag to wait until fade completes
 var scene_ready := false             # Prevent immediate input on scene load
 
 # Navigation state
-enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, SFX_VOLUME, HIGHSCORE_RESET, BACK }
+enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, SFX_VOLUME, FULLSCREEN, HIGHSCORE_RESET, BACK }
 var current_row: OptionRow = OptionRow.MASTER_VOLUME
 
 # Confirmation popup state
@@ -132,6 +133,8 @@ func _process(_delta):
 	if Input.is_action_just_pressed("phishing_confirm"):
 		SfxManager.play_ui_select()
 		match current_row:
+			OptionRow.FULLSCREEN:
+				_toggle_fullscreen()
 			OptionRow.HIGHSCORE_RESET:
 				_show_highscore_reset_confirmation()
 			OptionRow.BACK:
@@ -151,6 +154,9 @@ func _update_button_display():
 	match current_row:
 		OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME:
 			_highlight_volume_controls(current_row)
+		OptionRow.FULLSCREEN:
+			if fullscreen_button:
+				fullscreen_button.texture = terug_button_selected
 		OptionRow.HIGHSCORE_RESET:
 			if highscore_reset_button:
 				highscore_reset_button.texture = terug_button_selected
@@ -198,6 +204,7 @@ func _load_settings_from_manager():
 		master_volume_level = settings_manager.get_master_volume()
 		music_volume_level = settings_manager.get_music_volume()
 		sfx_volume_level = settings_manager.get_sfx_volume()
+		_update_fullscreen_button_label()
 		print("Settings loaded from SettingsManager")
 	else:
 		print("Using default settings")
@@ -305,7 +312,7 @@ func _initialize_progress_bars():
 
 
 func _navigate_vertical(direction: int):
-	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
+	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.FULLSCREEN, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
 	var current_index = options.find(current_row)
 	
 	if direction > 0:  # Down
@@ -344,6 +351,8 @@ func _reset_all_buttons():
 	music_volume_plus.texture = button_default
 	sfx_volume_minus.texture = button_default
 	sfx_volume_plus.texture = button_default
+	if fullscreen_button:
+		fullscreen_button.texture = terug_button_default
 	if highscore_reset_button:
 		highscore_reset_button.texture = terug_button_default
 	terug_button.texture = terug_button_default
@@ -369,3 +378,24 @@ func _update_volume_labels():
 		music_volume_label.text = str(music_volume_level)
 	if sfx_volume_label:
 		sfx_volume_label.text = str(sfx_volume_level)
+
+
+func _toggle_fullscreen():
+	var settings_manager = _get_settings_manager()
+	if settings_manager:
+		settings_manager.toggle_fullscreen()
+		_update_fullscreen_button_label()
+		print("Fullscreen toggled")
+
+
+func _update_fullscreen_button_label():
+	var settings_manager = _get_settings_manager()
+	if not settings_manager or not fullscreen_button:
+		return
+	
+	var label = fullscreen_button.get_node_or_null("Label")
+	if label:
+		if settings_manager.get_fullscreen():
+			label.text = "ON"
+		else:
+			label.text = "OFF"

@@ -17,7 +17,7 @@ func _load_high_scores():
 	
 	var scores = HighScoreManager.get_high_scores()
 	if scores.is_empty():
-		high_scores_label.text = "NO HIGH SCORES YET!\n\nPLAY THE GAME TO SET\nYOUR FIRST RECORD!"
+		high_scores_label.text = "Nog geen high scores beschikbaar!"
 		return
 	
 	var text = "HIGH SCORES\n\n"

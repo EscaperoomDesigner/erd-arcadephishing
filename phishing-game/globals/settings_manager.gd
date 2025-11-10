@@ -7,6 +7,7 @@ const SETTINGS_FILE_PATH = "user://settings.save"
 var master_volume_level: int = 7
 var music_volume_level: int = 7
 var sfx_volume_level: int = 7
+var is_fullscreen: bool = false
 
 signal settings_changed
 signal settings_loaded
@@ -40,7 +41,8 @@ func save_settings():
 	var save_data = {
 		"master_volume": master_volume_level,
 		"music_volume": music_volume_level,
-		"sfx_volume": sfx_volume_level
+		"sfx_volume": sfx_volume_level,
+		"is_fullscreen": is_fullscreen
 	}
 	
 	save_file.store_string(JSON.stringify(save_data))
@@ -80,13 +82,16 @@ func load_settings():
 		music_volume_level = save_data["music_volume"]
 	if save_data.has("sfx_volume"):
 		sfx_volume_level = save_data["sfx_volume"]
+	if save_data.has("is_fullscreen"):
+		is_fullscreen = save_data["is_fullscreen"]
 	
-	print("Settings loaded successfully - Master: ", master_volume_level, ", Music: ", music_volume_level, ", SFX: ", sfx_volume_level)
+	print("Settings loaded successfully - Master: ", master_volume_level, ", Music: ", music_volume_level, ", SFX: ", sfx_volume_level, ", Fullscreen: ", is_fullscreen)
 	
 	# Apply the loaded volumes to audio buses
 	_apply_master_volume()
 	_apply_music_volume()
 	_apply_sfx_volume()
+	_apply_fullscreen()
 	
 	settings_changed.emit()
 	return true
@@ -211,3 +216,23 @@ func get_sfx_volume() -> int:
 
 func get_sfx_volume_normalized() -> float:
 	return sfx_volume_level / 10.0
+
+func toggle_fullscreen():
+	is_fullscreen = !is_fullscreen
+	_apply_fullscreen()
+	save_settings()
+
+func set_fullscreen(fullscreen: bool):
+	is_fullscreen = fullscreen
+	_apply_fullscreen()
+	save_settings()
+
+func get_fullscreen() -> bool:
+	return is_fullscreen
+
+func _apply_fullscreen():
+	if is_fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	print("Fullscreen mode: ", is_fullscreen)
