@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxqe4gs1e577x"]
+[gd_scene format=3 uid="uid://dxqe4gs1e577x"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_kv15f"]
 [ext_resource type="Script" uid="uid://catxi8eg44jxo" path="res://screens/options/options.gd" id="1_ysaa8"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b68nqb7pwqghf" path="res://assets/images/options/optionsbutton.png" id="4_cvof0"]
 [ext_resource type="Texture2D" uid="uid://cskc8ytrmispa" path="res://assets/images/menu/button_default.png" id="5_3swr7"]
 
-[node name="Options" type="Control"]
+[node name="Options" type="Control" unique_id=1873344488]
 custom_minimum_size = Vector2(640, 512)
 layout_mode = 3
 anchors_preset = 15
@@ -17,19 +17,10 @@ grow_vertical = 2
 theme = ExtResource("1_kv15f")
 script = ExtResource("1_ysaa8")
 
-[node name="Background" parent="." instance=ExtResource("3_3swr7")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -312.0
-offset_top = -226.0
-offset_right = 968.0
-offset_bottom = 798.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="Background" parent="." unique_id=1388220665 instance=ExtResource("3_3swr7")]
+layout_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1524213948]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +32,7 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1426657516]
 custom_minimum_size = Vector2(72, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -56,26 +47,26 @@ text = "OPTIES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=248998022]
 custom_minimum_size = Vector2(580, 360)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MasterVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1692884348]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer" unique_id=783043723]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "HOOFDVOLUME"
 vertical_alignment = 1
 
-[node name="MasterProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="MasterProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MasterVolumeContainer" unique_id=902437374]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
@@ -86,7 +77,7 @@ step = 0.05
 value = 1.0
 show_percentage = false
 
-[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterProgressBar"]
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterProgressBar" unique_id=1881806296]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -98,14 +89,14 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MasterVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="MasterVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer" unique_id=1777176802]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeMinus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeMinus" unique_id=181456045]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -115,14 +106,14 @@ text = "<"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MasterVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="MasterVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MasterVolumeContainer" unique_id=1950140143]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumePlus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumePlus" unique_id=234061418]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -132,20 +123,20 @@ text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=290796602]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer" unique_id=96484273]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Muziekvolume"
 vertical_alignment = 1
 
-[node name="MusicProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="MusicProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MusicVolumeContainer" unique_id=103646886]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
@@ -156,7 +147,7 @@ step = 0.05
 value = 0.5
 show_percentage = false
 
-[node name="MusicVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicProgressBar"]
+[node name="MusicVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicProgressBar" unique_id=618485682]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -168,14 +159,14 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="MusicVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer" unique_id=1453739928]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeMinus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeMinus" unique_id=562062033]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -185,14 +176,14 @@ text = "<"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="MusicVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/MusicVolumeContainer" unique_id=1362093600]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumePlus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumePlus" unique_id=111284692]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -202,13 +193,13 @@ text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SfxVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SfxVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1634527060]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer" unique_id=1733079961]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -216,7 +207,7 @@ theme_override_font_sizes/font_size = 18
 text = "SFXVOLUME"
 vertical_alignment = 1
 
-[node name="SfxProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+[node name="SfxProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/SfxVolumeContainer" unique_id=958507907]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
@@ -227,7 +218,7 @@ step = 0.05
 value = 0.5
 show_percentage = false
 
-[node name="SfxVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxProgressBar"]
+[node name="SfxVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxProgressBar" unique_id=818702977]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -239,7 +230,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SfxVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+[node name="SfxVolumeMinus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer" unique_id=801327535]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
@@ -247,7 +238,7 @@ size_flags_horizontal = 8
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumeMinus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumeMinus" unique_id=41057900]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -257,14 +248,14 @@ text = "<"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SfxVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer"]
+[node name="SfxVolumePlus" type="TextureRect" parent="MarginContainer/VBoxContainer/SfxVolumeContainer" unique_id=1423344236]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_cvof0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumePlus"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SfxVolumeContainer/SfxVolumePlus" unique_id=144884858]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 0
 offset_right = 40.0
@@ -274,13 +265,14 @@ text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FullscreenContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="FullscreenContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1560531201]
+visible = false
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FullscreenContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FullscreenContainer" unique_id=826216418]
 custom_minimum_size = Vector2(445, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -288,7 +280,7 @@ theme_override_font_sizes/font_size = 18
 text = "Fullscreen"
 vertical_alignment = 1
 
-[node name="FullscreenButton" type="TextureRect" parent="MarginContainer/VBoxContainer/FullscreenContainer"]
+[node name="FullscreenButton" type="TextureRect" parent="MarginContainer/VBoxContainer/FullscreenContainer" unique_id=1776686588]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
@@ -296,7 +288,7 @@ size_flags_horizontal = 8
 texture = ExtResource("5_3swr7")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FullscreenContainer/FullscreenButton"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FullscreenContainer/FullscreenButton" unique_id=266568623]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1
 anchors_preset = 15
@@ -308,13 +300,13 @@ text = "set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ClearHighscoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ClearHighscoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2094530311]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer" unique_id=1476117337]
 custom_minimum_size = Vector2(445, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -322,7 +314,7 @@ theme_override_font_sizes/font_size = 18
 text = "RESET Highscores"
 vertical_alignment = 1
 
-[node name="HighscoreResetButton" type="TextureRect" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer"]
+[node name="HighscoreResetButton" type="TextureRect" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer" unique_id=1443932400]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
@@ -330,7 +322,7 @@ size_flags_horizontal = 8
 texture = ExtResource("5_3swr7")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer/HighscoreResetButton"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ClearHighscoreContainer/HighscoreResetButton" unique_id=1128866966]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1
 anchors_preset = 15
@@ -342,15 +334,7 @@ text = "reset"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VersionLabel" type="Label" parent="MarginContainer"]
-custom_minimum_size = Vector2(32, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 12
-text = "V0.9.0"
-
-[node name="TerugButton" type="TextureRect" parent="MarginContainer"]
+[node name="TerugButton" type="TextureRect" parent="MarginContainer" unique_id=329251796]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 34)
 layout_mode = 2
@@ -359,7 +343,7 @@ size_flags_vertical = 8
 texture = ExtResource("5_3swr7")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/TerugButton"]
+[node name="Label" type="Label" parent="MarginContainer/TerugButton" unique_id=669579535]
 custom_minimum_size = Vector2(128, 34)
 layout_mode = 0
 offset_right = 40.0
@@ -368,7 +352,7 @@ text = "Terug"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ConfirmPanel" type="PanelContainer" parent="."]
+[node name="ConfirmPanel" type="PanelContainer" parent="." unique_id=418587199]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(520, 300)
@@ -385,13 +369,13 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ConfirmPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ConfirmPanel" unique_id=1032648849]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer" unique_id=1749368026]
 custom_minimum_size = Vector2(400, 160)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -402,14 +386,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmPanel/VBoxContainer" unique_id=1195629107]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/separation = 128
 alignment = 1
 
-[node name="YesButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer"]
+[node name="YesButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer" unique_id=2112154684]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
@@ -417,7 +401,7 @@ size_flags_horizontal = 8
 texture = ExtResource("5_3swr7")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/YesButton"]
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/YesButton" unique_id=164963472]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1
 anchors_preset = 15
@@ -429,7 +413,7 @@ text = "JA"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NoButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer"]
+[node name="NoButton" type="TextureRect" parent="ConfirmPanel/VBoxContainer/HBoxContainer" unique_id=1682965020]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
@@ -437,7 +421,7 @@ size_flags_horizontal = 8
 texture = ExtResource("5_3swr7")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/NoButton"]
+[node name="Label" type="Label" parent="ConfirmPanel/VBoxContainer/HBoxContainer/NoButton" unique_id=1959553240]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1
 anchors_preset = 15

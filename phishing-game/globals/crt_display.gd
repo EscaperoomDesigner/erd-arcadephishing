@@ -3,6 +3,7 @@ extends Control
 @onready var subviewport: SubViewport = $ShaderRect/SubViewport
 @onready var fade: ColorRect = $Fade
 @onready var unfiltered_display: Control = $UnfilteredDisplay
+@onready var transition_material: ShaderMaterial = $Fade.material
 
 var _transitioning := false
 
@@ -12,10 +13,17 @@ func _ready():
 	if get_parent() == null:
 		get_tree().root.add_child(self)
 		self.owner = null
-	fade.visible = true
-	fade.modulate.a = 0.0
 
+	fade.visible = true
+	# Defer so GameManager has already applied the mode's viewport size
+	call_deferred("_apply_display_size")
 	_move_current_scene_to_subviewport()
+
+
+func _apply_display_size() -> void:
+	var display_size := get_viewport_rect().size
+	subviewport.size = Vector2i(display_size)
+	transition_material.set_shader_parameter("screen_size", display_size)
 
 
 func _move_current_scene_to_subviewport():
@@ -29,7 +37,7 @@ func _move_current_scene_to_subviewport():
 
 func fade_to_packed(
 	packed: PackedScene,
-	fade_time := 0.35
+	fade_time := 3.0
 ) -> void:
 	if _transitioning:
 		return
@@ -41,19 +49,19 @@ func fade_to_packed(
 		return
 
 	fade.visible = true
-	fade.modulate.a = 0.0
+	transition_material.set_shader_parameter("progress", 0.0)
 
 	var old_scene = null
 	if subviewport.get_child_count() > 0:
 		old_scene = subviewport.get_child(0)
 
 	var t := create_tween()
-	t.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 
-	# Fade out
-	t.tween_property(fade, "modulate:a", 1.0, fade_time)
+	# Converge: pixels come from outside to center (progress 0.0 -> 0.5)
+	t.tween_property(transition_material, "shader_parameter/progress", 0.5, fade_time * 0.5)
 
-	# Swap CRT scene
+	# Swap CRT scene at the middle point (when fully black)
 	t.tween_callback(func():
 		if old_scene:
 			old_scene.queue_free()
@@ -61,11 +69,12 @@ func fade_to_packed(
 		subviewport.add_child(instance)
 	)
 
-	# Fade back in
-	t.tween_property(fade, "modulate:a", 0.0, fade_time)
+	# Disperse: pixels spread from center outwards (progress 0.5 -> 1.0)
+	t.tween_property(transition_material, "shader_parameter/progress", 1.0, fade_time * 0.5)
 
-	# Unlock and listen for input
+	# Reset and unlock
 	t.tween_callback(func():
+		transition_material.set_shader_parameter("progress", 0.0)
 		_transitioning = false
 	)
 

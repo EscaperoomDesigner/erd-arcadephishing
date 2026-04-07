@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvw3h2higqq3h"]
+[gd_scene format=3 uid="uid://bvw3h2higqq3h"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_w4kqt"]
 [ext_resource type="Script" uid="uid://l4p37uelqctb" path="res://screens/highscore/highscore.gd" id="2_88nhi"]
 [ext_resource type="PackedScene" uid="uid://b7qqt3kh5t4p5" path="res://component/background.tscn" id="3_88nhi"]
 [ext_resource type="Texture2D" uid="uid://c5v3k6ph0i38" path="res://assets/images/menu/button_selected.png" id="4_88nhi"]
+[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="5_5xsqn"]
 
-[node name="Highscore" type="Control"]
+[node name="Highscore" type="Control" unique_id=601738500]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,19 +16,10 @@ grow_vertical = 2
 theme = ExtResource("1_w4kqt")
 script = ExtResource("2_88nhi")
 
-[node name="Background" parent="." instance=ExtResource("3_88nhi")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -312.0
-offset_top = -226.0
-offset_right = 968.0
-offset_bottom = 798.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="Background" parent="." unique_id=1177673311 instance=ExtResource("3_88nhi")]
+layout_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=782982225]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,14 +31,13 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="ScoresVBox" type="VBoxContainer" parent="MarginContainer"]
+[node name="ScoresVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1832524419]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(600, 420)
+custom_minimum_size = Vector2(600, 640)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="MarginContainer/ScoresVBox"]
+[node name="Label" type="Label" parent="MarginContainer/ScoresVBox" unique_id=298763894]
 custom_minimum_size = Vector2(72, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -60,16 +51,42 @@ text = "HIGHSCORES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VersionLabel" type="Label" parent="MarginContainer"]
-custom_minimum_size = Vector2(32, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 12
-text = "V0.2.1"
-
-[node name="TerugButton" type="TextureRect" parent="MarginContainer"]
+[node name="InfoContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1696107931]
 unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/InfoContainer" unique_id=516117876]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_w4kqt")
+theme_override_font_sizes/font_size = 16
+text = "DRUK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoContainer" unique_id=782959021]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_5xsqn")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/InfoContainer" unique_id=1717346452]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_w4kqt")
+theme_override_font_sizes/font_size = 16
+text = "OM NAAR START SCHERM TE GAAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TerugButton" type="TextureRect" parent="MarginContainer" unique_id=486170440]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(128, 34)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -77,7 +94,7 @@ size_flags_vertical = 8
 texture = ExtResource("4_88nhi")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/TerugButton"]
+[node name="Label" type="Label" parent="MarginContainer/TerugButton" unique_id=133951537]
 custom_minimum_size = Vector2(128, 34)
 layout_mode = 0
 offset_right = 40.0

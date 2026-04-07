@@ -40,6 +40,11 @@ func _ready():
 	GameManager.score_changed.connect(_on_score_changed)
 	GameManager.candidate_changed.connect(_on_candidate_changed)
 	
+	# Wait for CRT transition to finish before starting countdown
+	if CrtDisplay._transitioning:
+		while CrtDisplay._transitioning:
+			await get_tree().create_timer(0.1).timeout
+	
 	# Start countdown sequence
 	_start_countdown()
 

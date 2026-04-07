@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c8f805ycod3mu"]
+
+[ext_resource type="Texture2D" uid="uid://dly75ncy1m3ug" path="res://assets/images/joycon_default.png" id="1_rcyso"]
+[ext_resource type="Script" uid="uid://doc4ghchqkvox" path="res://component/joycon_texture_rect.gd" id="1_sjn0u"]
+
+[node name="TextureRect" type="TextureRect" unique_id=624472446]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_rcyso")
+expand_mode = 1
+script = ExtResource("1_sjn0u")

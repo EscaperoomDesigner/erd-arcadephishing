@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bal68evl0lwek"]
+
+[ext_resource type="Script" uid="uid://2m05o4wjq7y0" path="res://component/pressbuttoncomponent.gd" id="1_2ej7g"]
+[ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_6dnij"]
+[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="2_gvi53"]
+[ext_resource type="Script" path="res://component/button_texture_rect.gd" id="4_b4v3j"]
+
+[node name="InfoContainer" type="HBoxContainer" unique_id=2030572459]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_2ej7g")
+
+[node name="Label" type="Label" parent="." unique_id=1756337207]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_6dnij")
+theme_override_font_sizes/font_size = 24
+text = "DRUK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonTextureRect" type="TextureRect" parent="." unique_id=959706512]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_gvi53")
+expand_mode = 1
+script = ExtResource("4_b4v3j")
+
+[node name="Label2" type="Label" parent="." unique_id=1235700731]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_6dnij")
+theme_override_font_sizes/font_size = 24
+text = "OM TE STARTEN"
+horizontal_alignment = 1
+vertical_alignment = 1

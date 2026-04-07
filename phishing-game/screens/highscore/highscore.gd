@@ -5,9 +5,12 @@ extends Control
 
 const SCORE_HBOX_SCENE = preload("res://component/score_hbox/score_hbox.tscn")
 
+const AUTO_RETURN_TIME: float = 20.0
+
 var transition_in_progress := false
 var waiting_for_crt := false
 var scene_ready := false
+var idle_time: float = 0.0
 
 func _ready():
 	# Connect to high score manager signal to auto-refresh
@@ -28,7 +31,7 @@ func _ready():
 	scene_ready = true
 
 
-func _process(_delta):
+func _process(delta):
 	if waiting_for_crt:
 		if not CrtDisplay._transitioning:
 			# Fade finished, allow input again
@@ -40,8 +43,8 @@ func _process(_delta):
 	if transition_in_progress or not scene_ready:
 		return
 
-	# Handle confirm input to go back to start screen
-	if Input.is_action_just_pressed("phishing_confirm"):
+	idle_time += delta
+	if idle_time >= AUTO_RETURN_TIME or Input.is_action_just_pressed("phishing_confirm"):
 		_go_back_to_start()
 
 func _go_back_to_start():

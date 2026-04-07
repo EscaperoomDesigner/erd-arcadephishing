@@ -3,13 +3,17 @@ extends Control
 
 
 @export var alphabet := " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"  # letters to cycle
-@export var max_chars := 8  # number of character slots
+@export var max_chars := 5  # number of character slots
 
 @onready var timer_label: Label = %TimerLabel
 @onready var score_label: Label = %ScoreLabel
-@onready var red_arrow_up: Texture2D = preload("res://assets/images/end/arrow_up.png")
-@onready var red_arrow_down: Texture2D = preload("res://assets/images/end/arrow_down.png")
-@onready var start_packed_scene: PackedScene = load("uid://c4ma6otpwlva4")
+@onready var red_arrow_up: Texture2D = preload("uid://dvf8lcroi8t3u")
+@onready var red_arrow_down: Texture2D = preload("uid://cwqy2s08yvrga")
+@onready var orange_arrow_up: Texture2D = preload("uid://bjj454kimvvgf")
+@onready var orange_arrow_down: Texture2D = preload("uid://demrf7o8ym7ka")
+@onready var green_arrow_up: Texture2D = preload("uid://cfqnhldvofekq")
+@onready var green_arrow_down: Texture2D = preload("uid://djs0d2lc4vdmk")
+@onready var highscore_packed_scene: PackedScene = load("uid://bvw3h2higqq3h")
 
 var transition_in_progress := false
 var elapsed := 0.0
@@ -54,8 +58,11 @@ func _ready():
 			label.text = ""
 			rows.append({ "tex_up": tex_up, "label": label, "tex_down": tex_down })
 
-	# Initialize first letter
+	# Initialize first letter and set orange arrows on first slot
 	char_index = 0
+	if rows.size() > 0:
+		rows[0]["tex_up"].texture = orange_arrow_up
+		rows[0]["tex_down"].texture = orange_arrow_down
 	_update_current_label()
 
 
@@ -93,20 +100,67 @@ func _process(delta):
 		char_index = (char_index - 1 + alphabet.length()) % alphabet.length()
 		_update_current_label()
 
-	if Input.is_action_just_pressed("phishing_confirm"):
-		# Check bounds before accessing
-		if current_index < rows.size():
-			# Change the TextureRects to red arrows for this slot
-			var row = rows[current_index]
-			row["tex_up"].texture = red_arrow_up
-			row["tex_down"].texture = red_arrow_down
+	# Allow moving left/right between slots
+	elif Input.is_action_just_pressed("phishing_left"):
+		if current_index > 0:
+			# Save current letter and mark as locked in (green)
+			rows[current_index]["label"].text = alphabet[char_index]
+			rows[current_index]["tex_up"].texture = green_arrow_up
+			rows[current_index]["tex_down"].texture = green_arrow_down
+			# Move to previous slot
+			current_index -= 1
+			# Set orange arrows on new current slot
+			rows[current_index]["tex_up"].texture = orange_arrow_up
+			rows[current_index]["tex_down"].texture = orange_arrow_down
+			# Update char_index to match the letter in the slot we're moving to
+			var prev_letter = rows[current_index]["label"].text
+			char_index = max(alphabet.find(prev_letter), 0)
+			_update_current_label()
+	elif Input.is_action_just_pressed("phishing_right"):
+		if current_index < rows.size() - 1:
+			# Save current letter and mark as locked in (green)
+			rows[current_index]["label"].text = alphabet[char_index]
+			rows[current_index]["tex_up"].texture = green_arrow_up
+			rows[current_index]["tex_down"].texture = green_arrow_down
+			# Move to next slot
+			current_index += 1
+			# Set orange arrows on new current slot
+			rows[current_index]["tex_up"].texture = orange_arrow_up
+			rows[current_index]["tex_down"].texture = orange_arrow_down
+			# Update char_index to match the letter in the slot we're moving to
+			var next_letter = rows[current_index]["label"].text
+			char_index = max(alphabet.find(next_letter), 0)
+			_update_current_label()
 
-		current_index += 1
-		if current_index >= rows.size():
+	if Input.is_action_just_pressed("phishing_confirm"):
+		# Check if we're at the last position
+		if current_index >= rows.size() - 1:
+			# At last position, save and finish
+			if current_index < rows.size():
+				rows[current_index]["label"].text = alphabet[char_index]
+				rows[current_index]["tex_up"].texture = green_arrow_up
+				rows[current_index]["tex_down"].texture = green_arrow_down
 			_finish_name_selection()
 		else:
-			char_index = 0  # reset for next slot
-			_update_current_label()
+			# Not at last position, lock in and move forward
+			if current_index < rows.size():
+				var row = rows[current_index]
+				# Check if this slot is already confirmed (green arrows)
+				var already_confirmed = (row["tex_up"].texture == green_arrow_up)
+				
+				# If not already confirmed, confirm it (make it green)
+				if not already_confirmed:
+					row["tex_up"].texture = green_arrow_up
+					row["tex_down"].texture = green_arrow_down
+
+			# Move to next slot
+			current_index += 1
+			if current_index < rows.size():
+				# Set orange arrows on the new current slot
+				rows[current_index]["tex_up"].texture = orange_arrow_up
+				rows[current_index]["tex_down"].texture = orange_arrow_down
+				char_index = 0  # reset for next slot
+				_update_current_label()
 
 
 
@@ -170,4 +224,4 @@ func _start_transition():
 	transition_in_progress = true
 	
 	GameManager.reset_game()
-	CrtDisplay.fade_to_packed(start_packed_scene, 1.05)
+	CrtDisplay.fade_to_packed(highscore_packed_scene, 1.05)

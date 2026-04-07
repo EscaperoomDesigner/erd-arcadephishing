@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cb38iq33127s7"]
+[gd_scene format=3 uid="uid://cb38iq33127s7"]
 
 [ext_resource type="Script" uid="uid://biikicvt6aymm" path="res://globals/crt_display.gd" id="1_g0m4y"]
 [ext_resource type="Shader" uid="uid://dfy8ndoqbdx4s" path="res://resources/crt_shader.gdshader" id="1_gg3jx"]
+[ext_resource type="Shader" uid="uid://dwl2t0td8cfuo" path="res://resources/transition_dispersion.gdshader" id="2_trans"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_g0m4y"]
 viewport_path = NodePath("ShaderRect/SubViewport")
@@ -10,18 +11,25 @@ viewport_path = NodePath("ShaderRect/SubViewport")
 resource_local_to_scene = true
 shader = ExtResource("1_gg3jx")
 shader_parameter/tex = SubResource("ViewportTexture_g0m4y")
-shader_parameter/mask_type = 2
-shader_parameter/curve = 0.05
-shader_parameter/sharpness = 0.666667
-shader_parameter/color_offset = -0.3
+shader_parameter/mask_type = 1
+shader_parameter/curve = 0.0670000031825
+shader_parameter/sharpness = 0.6666667
+shader_parameter/color_offset = 2.3749999966682367e-08
 shader_parameter/mask_brightness = 1.0
 shader_parameter/scanline_brightness = 1.0
-shader_parameter/min_scanline_thickness = 0.5
+shader_parameter/min_scanline_thickness = 1.0
 shader_parameter/aspect = 0.75
-shader_parameter/wobble_strength = 0.05
+shader_parameter/wobble_strength = 0.0
 
-[node name="CRTDisplay" type="Control"]
-custom_minimum_size = Vector2(640, 512)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trans"]
+resource_local_to_scene = true
+shader = ExtResource("2_trans")
+shader_parameter/progress = 0.0
+shader_parameter/screen_size = Vector2(640, 512)
+shader_parameter/block_size = 4.0
+
+[node name="CRTDisplay" type="Control" unique_id=2140516141]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,41 +38,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g0m4y")
 
-[node name="ShaderRect" type="ColorRect" parent="."]
+[node name="ShaderRect" type="ColorRect" parent="." unique_id=51963549]
 material = SubResource("ShaderMaterial_g0m4y")
 custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewport" type="SubViewport" parent="ShaderRect"]
-size = Vector2i(640, 512)
+[node name="SubViewport" type="SubViewport" parent="ShaderRect" unique_id=176309052]
+size = Vector2i(1280, 720)
 
-[node name="Fade" type="ColorRect" parent="."]
+[node name="Fade" type="ColorRect" parent="." unique_id=1963307765]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_trans")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
-[node name="UnfilteredDisplay" type="Control" parent="."]
+[node name="UnfilteredDisplay" type="Control" parent="." unique_id=613073575]
 custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2

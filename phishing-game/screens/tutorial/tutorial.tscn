@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0ckh3uehbwwd"]
+[gd_scene format=3 uid="uid://b0ckh3uehbwwd"]
 
 [ext_resource type="Script" uid="uid://deiabefumu06i" path="res://screens/tutorial/tutorial.gd" id="1_xl6kk"]
 [ext_resource type="Texture2D" uid="uid://bsc2sp5m667k2" path="res://assets/images/tutorial/tut.png" id="2_djnnt"]
@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dc3p4ceqkjabo" path="res://assets/images/tutorial/tutorialheader.png" id="4_alrl7"]
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="4_i3p7n"]
 [ext_resource type="Texture2D" uid="uid://d0ngegevlsxvi" path="res://assets/images/tutorial/header.png" id="4_mvsrh"]
-[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="6_h7x3i"]
 [ext_resource type="Texture2D" uid="uid://dknaugqemde24" path="res://assets/images/tutorial/tutorialpage2.png" id="6_xl6kk"]
+[ext_resource type="PackedScene" uid="uid://c8f805ycod3mu" path="res://component/joycon_texture_rect.tscn" id="7_i3p7n"]
+[ext_resource type="PackedScene" uid="uid://bbtlyulpo4yar" path="res://component/button_texture_rect.tscn" id="7_mvsrh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h7x3i"]
 texture = ExtResource("4_6f2ve")
@@ -15,7 +16,7 @@ texture = ExtResource("4_6f2ve")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvsrh"]
 texture = ExtResource("6_xl6kk")
 
-[node name="Tutorial" type="Control"]
+[node name="Tutorial" type="Control" unique_id=2087691946]
 custom_minimum_size = Vector2(640, 360)
 layout_mode = 3
 anchors_preset = 15
@@ -26,7 +27,7 @@ grow_vertical = 2
 theme = ExtResource("4_i3p7n")
 script = ExtResource("1_xl6kk")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1448963426]
 custom_minimum_size = Vector2(640, 360)
 layout_mode = 1
 anchors_preset = 15
@@ -37,7 +38,7 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0.33333334, 0.39215687, 0.43529412, 1)
 
-[node name="BackgroundRect" type="TextureRect" parent="."]
+[node name="BackgroundRect" type="TextureRect" parent="." unique_id=826729780]
 visible = false
 custom_minimum_size = Vector2(640, 20)
 layout_mode = 1
@@ -49,7 +50,7 @@ grow_vertical = 2
 texture = ExtResource("2_djnnt")
 expand_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1830819961]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,14 +62,14 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HeaderRect" type="TextureRect" parent="MarginContainer"]
-custom_minimum_size = Vector2(256, 40)
+[node name="HeaderRect" type="TextureRect" parent="MarginContainer" unique_id=716311138]
+custom_minimum_size = Vector2(512, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("4_mvsrh")
 
-[node name="Label" type="Label" parent="MarginContainer/HeaderRect"]
+[node name="Label" type="Label" parent="MarginContainer/HeaderRect" unique_id=1760936911]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,313 +77,352 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "PHISHING SIMULATOR SPELREGELS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="TimerLabel" type="Label" parent="MarginContainer"]
+[node name="TimerLabel" type="Label" parent="MarginContainer" unique_id=1322053007]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
 text = "15"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="GoalPanel" type="Panel" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(280, 360)
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=811723913]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+alignment = 1
+
+[node name="GoalPanel" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=664542431]
+custom_minimum_size = Vector2(640, 560)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_h7x3i")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/GoalPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/GoalPanel" unique_id=382227884]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 64
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer" unique_id=1752955300]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(96, 40)
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer" unique_id=1652021897]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("4_alrl7")
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/TextureRect"]
-custom_minimum_size = Vector2(104, 24)
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/TextureRect" unique_id=202397515]
 layout_mode = 1
-offset_right = 80.0
-offset_bottom = 24.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/TextureRect/MarginContainer" unique_id=157605335]
+custom_minimum_size = Vector2(104, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "DOEL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer" unique_id=1701593547]
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 3
-theme_override_constants/separation = 6
+theme_override_constants/separation = 16
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1440848434]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = "WELKOM BIJ DE PHISHING SIMULATOR"
 autowrap_mode = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2094528872]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = " TIJDENS HET SPEL ZIE JE VERSCHILLENDE E-MAILS"
-autowrap_mode = 2
+autowrap_mode = 3
 
-[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1949749908]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
-text = " DIT KUNNEN NORMALE
-E-MAILS OF PHISHINGMAILS ZIJN"
-autowrap_mode = 2
+theme_override_font_sizes/font_size = 14
+text = " DIT KUNNEN NORMALE E-MAILS OF PHISHING-MAILS ZIJN"
+autowrap_mode = 3
 
-[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1971975057]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = " IDENTIFICEER ZE EN MAAK DE JUISTE KEUZE MET DE JOYSTICK EN KNOP"
-autowrap_mode = 2
+autowrap_mode = 3
 
-[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1345428076]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = " VOOR ELKE FOUT VERLIES JE 1 HART"
 autowrap_mode = 2
 
-[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=176967804]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = " JE HEBT 2 MINUTEN OM ZOVEEL MOGELIJK E-MAILS TE IDENTIFICEREN"
 autowrap_mode = 2
 
-[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=43735725]
 custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 20
 text = "SUCCESS!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=95757857]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 10
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1677100808]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("4_i3p7n")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 20
+text = "BEWEEG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=624472446 instance=ExtResource("7_i3p7n")]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1854426755]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("4_i3p7n")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "OM TE SELECTEREN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2076052299]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1826707743]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("4_i3p7n")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
 text = "DRUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="ButtonTextureRect" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=161554588 instance=ExtResource("7_mvsrh")]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("6_h7x3i")
-stretch_mode = 3
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/GoalPanel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=764903859]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("4_i3p7n")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 20
 text = "OM TE BEVESTIGEN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PhishingSignalsContainer" type="Panel" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(280, 430)
+[node name="PhishingSignalsContainer" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=1759651251]
+custom_minimum_size = Vector2(520, 600)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_mvsrh")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer" unique_id=540449696]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer" unique_id=1257757868]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/separation = 2
+theme_override_constants/separation = -4
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(96, 40)
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer" unique_id=263695487]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("4_alrl7")
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/TextureRect"]
-custom_minimum_size = Vector2(104, 24)
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/TextureRect" unique_id=563336195]
 layout_mode = 1
-offset_right = 80.0
-offset_bottom = 24.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/TextureRect/MarginContainer" unique_id=1305538846]
+custom_minimum_size = Vector2(104, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 12
 text = "PHISHING
 SIGNALEN"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 2
-
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer" unique_id=331161849]
 custom_minimum_size = Vector2(232, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "CHECKLIST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer" unique_id=455104074]
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
-theme_override_constants/separation = 0
 
-[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer" unique_id=307799296]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=285254610]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 14
 text = "ONJUIST E-MAILADRES VAN AFZENDER"
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=155023369]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "VREEMD TIJDSTIP VAN ONTVANGST"
 vertical_alignment = 1
 
-[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=713269535]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "TE MOOI OM WAAR TE ZIJN"
 vertical_alignment = 1
 
-[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=922593339]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "VERDACHTE BIJLAGE"
 vertical_alignment = 1
 
-[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=925480781]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "ALGEMENE AANHEF"
 vertical_alignment = 1
 
-[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1084876942]
 custom_minimum_size = Vector2(238, 23)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 14
 text = "SPELLING EN/OF GRAMMATICAFOUTEN"
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Label9" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label9" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=875978889]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "VERZOEK OM GELD"
 vertical_alignment = 1
 
-[node name="Label10" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label10" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=90776725]
 custom_minimum_size = Vector2(238, 22)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "VERZOEK OM ONMIDDELIJKE ACTIE"
 vertical_alignment = 1
 
-[node name="Label11" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Label11" type="Label" parent="MarginContainer/HBoxContainer/PhishingSignalsContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=322788305]
 custom_minimum_size = Vector2(238, 21)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "RARE SNELKOPPELINGEN"
 vertical_alignment = 1

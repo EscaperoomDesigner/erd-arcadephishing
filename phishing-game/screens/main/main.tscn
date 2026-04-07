@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://75uq0a777qf6"]
+[gd_scene format=3 uid="uid://75uq0a777qf6"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_h47hb"]
 [ext_resource type="Script" uid="uid://bvfch1q08ekis" path="res://screens/main/main.gd" id="1_j5age"]
@@ -16,7 +16,7 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6p4r"]
 texture = ExtResource("5_126cu")
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1461608378]
 custom_minimum_size = Vector2(640, 360)
 layout_mode = 3
 anchors_preset = 15
@@ -27,7 +27,7 @@ grow_vertical = 2
 theme = ExtResource("1_h47hb")
 script = ExtResource("1_j5age")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=590745595]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -41,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_qne8x")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=327493759]
 custom_minimum_size = Vector2(1280, 640)
 layout_mode = 1
 anchors_preset = 15
@@ -52,7 +52,7 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0.501961, 0.501961, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1764580022]
 custom_minimum_size = Vector2(1280, 64)
 layout_mode = 1
 anchors_preset = 7
@@ -68,7 +68,7 @@ grow_vertical = 0
 mouse_filter = 1
 color = Color(0.25098, 0.25098, 0.25098, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=711127647]
 custom_minimum_size = Vector2(640, 360)
 layout_mode = 1
 anchors_preset = 15
@@ -81,51 +81,51 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="CountdownLabel" type="Label" parent="MarginContainer"]
+[node name="CountdownLabel" type="Label" parent="MarginContainer" unique_id=155555457]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_i6tjv")
-theme_override_font_sizes/font_size = 120
+theme_override_font_sizes/font_size = 152
 text = "3"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=172598942]
 layout_mode = 2
 
-[node name="RecycleBin" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="RecycleBin" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=806324427]
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("5_j6p4r")
 
-[node name="FloppyDisk" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="FloppyDisk" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=670011044]
 visible = false
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("5_vhluw")
 
-[node name="Folder" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="Folder" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1115061621]
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("4_126cu")
 
-[node name="Browser" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="Browser" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1615153808]
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("7_yg3ed")
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Browser"]
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Browser" unique_id=1991748102]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 1
@@ -146,107 +146,108 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 4
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2122670444]
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1565564476]
 texture_filter = 1
-custom_minimum_size = Vector2(624, 56)
+custom_minimum_size = Vector2(624, 64)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_j6p4r")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel"]
-custom_minimum_size = Vector2(624, 40)
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel" unique_id=53519044]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -39.0
-offset_top = -20.0
-offset_right = 39.0
-offset_bottom = 20.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_vertical = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer" unique_id=1482549282]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Heart1" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="Heart1" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=331282902]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 36)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("3_4eq7x")
-stretch_mode = 2
+expand_mode = 1
 
-[node name="Heart2" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="Heart2" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=516689479]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 36)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("3_4eq7x")
-stretch_mode = 2
+expand_mode = 1
 
-[node name="Heart3" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="Heart3" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=1339645963]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 36)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 2
+size_flags_vertical = 0
 texture = ExtResource("3_4eq7x")
-stretch_mode = 2
+expand_mode = 1
 
-[node name="Question" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="Question" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=896804342]
 custom_minimum_size = Vector2(288, 32)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 20
 text = "is dit een phishing mail?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Yes" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="Yes" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=356850535]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 32)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 focus_mode = 2
 mouse_filter = 0
 texture = ExtResource("6_4nmqe")
-stretch_mode = 2
+expand_mode = 1
+stretch_mode = 4
 
-[node name="No" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="No" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=1943355881]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 32)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 2
 size_flags_vertical = 0
 focus_mode = 2
 mouse_filter = 0
 texture = ExtResource("7_4nmqe")
-stretch_mode = 2
+expand_mode = 1
+stretch_mode = 4
 
-[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=555286844]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 text = "2:00"
 horizontal_alignment = 1
 vertical_alignment = 1

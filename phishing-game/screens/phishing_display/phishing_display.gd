@@ -80,12 +80,12 @@ func _process(delta):
 		return  # ignore input while showing solution
 
 	# --- Select candidate (but don't confirm yet) ---
-	if Input.is_action_just_pressed("phishing_yes"):
+	if Input.is_action_just_pressed("phishing_left"):
 		candidate_answer = 0
 		GameManager.emit_signal("candidate_changed", candidate_answer)
 		print("Candidate answer: YES")
 
-	elif Input.is_action_just_pressed("phishing_no"):
+	elif Input.is_action_just_pressed("phishing_right"):
 		candidate_answer = 1
 		GameManager.emit_signal("candidate_changed", candidate_answer)
 		print("Candidate answer: NO")

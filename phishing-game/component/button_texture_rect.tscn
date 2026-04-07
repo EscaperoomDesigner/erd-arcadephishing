@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bbtlyulpo4yar"]
+
+[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="1_dpxam"]
+[ext_resource type="Script" uid="uid://bas72yun2aakg" path="res://component/button_texture_rect.gd" id="2_a1hek"]
+
+[node name="ButtonTextureRect" type="TextureRect" unique_id=161554588]
+custom_minimum_size = Vector2(64, 64)
+texture = ExtResource("1_dpxam")
+expand_mode = 1
+script = ExtResource("2_a1hek")

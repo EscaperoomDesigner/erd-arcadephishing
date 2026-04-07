@@ -14,6 +14,9 @@ const MAIN_PACKED_SCENE: PackedScene = preload("uid://75uq0a777qf6")
 const PHISHING_DISPLAY_PACKED_SCENE: PackedScene = preload("uid://dtggel806lv3q")
 const END_PACKED_SCENE: PackedScene = preload("uid://bomsy4dsoap7a")
 
+# Debug flag for testing single-player mode in editor (set to false for normal development)
+const DEBUG_SINGLEPLAYER_MODE: bool = false
+
 var lives: int = 3
 var score: int = 0
 var game_time: float = 120.0 # Total game time in seconds
@@ -27,6 +30,24 @@ var is_new_high_score: bool = false
 var high_score_position: int = -1
 var timer_ran_out: bool = false
 var start_game_blocked: bool = false  # Prevent double start game calls
+
+
+func _ready():
+	# Set resolution based on build variant (or debug flag for editor testing)
+	if OS.has_feature("singleplayer") or DEBUG_SINGLEPLAYER_MODE:
+		# Single-player build: 1280x720
+		get_window().size = Vector2i(1280, 720)
+		get_viewport().size = Vector2i(1280, 720)
+		# Also update the project settings at runtime
+		ProjectSettings.set_setting("display/window/size/viewport_width", 1280)
+		ProjectSettings.set_setting("display/window/size/viewport_height", 720)
+		ProjectSettings.set_setting("display/window/size/window_width_override", 1280)
+		ProjectSettings.set_setting("display/window/size/window_height_override", 720)
+	elif OS.has_feature("multiplayer"):
+		# Multi-player build: 640x512 (keep default)
+		# No changes needed, using project defaults
+		pass
+
 
 func lose_life(showing_solution: bool = false):
 	lives -= 1

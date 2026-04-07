@@ -1,16 +1,51 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4ma6otpwlva4"]
+[gd_scene format=3 uid="uid://c4ma6otpwlva4"]
 
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_0w6la"]
 [ext_resource type="Script" uid="uid://dpd5ojp1sq08r" path="res://screens/start/start.gd" id="1_1g8oq"]
 [ext_resource type="Texture2D" uid="uid://bbxli0vag7wys" path="res://assets/images/menu/menubkg.png" id="3_nvj33"]
 [ext_resource type="Texture2D" uid="uid://bftp763bqfqq2" path="res://assets/images/menu/name.png" id="4_0el08"]
 [ext_resource type="Texture2D" uid="uid://cskc8ytrmispa" path="res://assets/images/menu/button_default.png" id="5_0el08"]
-[ext_resource type="Texture2D" uid="uid://dmknjsubqj8s2" path="res://assets/images/menu/button_1p.png" id="5_ut5s6"]
-[ext_resource type="Texture2D" uid="uid://cuygt21c4nhtw" path="res://assets/images/menu/button_2p.png" id="6_7824y"]
-[ext_resource type="Texture2D" uid="uid://boswxswi8ag8t" path="res://assets/images/menu/joycon.png" id="8_1dtxe"]
-[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="8_7824y"]
+[ext_resource type="PackedScene" uid="uid://bbtlyulpo4yar" path="res://component/button_texture_rect.tscn" id="6_4y736"]
 
-[node name="Start" type="Control"]
+[sub_resource type="GDScript" id="GDScript_ut5s6"]
+script/source = "extends HBoxContainer
+
+@onready var button_texture_rect: TextureRect = $ButtonTextureRect
+
+const BUTTON_DEFAULT_DURATION: float = 1.0
+const BUTTON_PRESSED_DURATION: float = 0.5
+
+var button_pressed_texture: Texture2D = preload(\"uid://kxesqx6ma8l0\")
+var button_default_texture: Texture2D = preload(\"uid://cd72fbwyplkom\")
+
+var button_cycle_time: float = 0.0
+var is_button_pressed_state: bool = false
+
+
+func _ready():
+	if button_texture_rect == null:
+		push_error(\"ButtonTextureRect not found!\")
+		return
+	if button_pressed_texture == null:
+		push_error(\"button_pressed_texture failed to load!\")
+	if button_default_texture == null:
+		push_error(\"button_default_texture failed to load!\")
+
+
+func _process(delta):
+	if button_texture_rect == null:
+		return
+		
+	# Button texture cycling
+	button_cycle_time += delta
+	var current_interval = BUTTON_PRESSED_DURATION if is_button_pressed_state else BUTTON_DEFAULT_DURATION
+	if button_cycle_time >= current_interval:
+		button_cycle_time = 0.0
+		is_button_pressed_state = !is_button_pressed_state
+		button_texture_rect.texture = button_pressed_texture if is_button_pressed_state else button_default_texture
+"
+
+[node name="Start" type="Control" unique_id=1964316131]
 custom_minimum_size = Vector2(640, 512)
 layout_mode = 3
 anchors_preset = 15
@@ -21,7 +56,7 @@ grow_vertical = 2
 theme = ExtResource("1_0w6la")
 script = ExtResource("1_1g8oq")
 
-[node name="BackgroundRect" type="TextureRect" parent="."]
+[node name="BackgroundRect" type="TextureRect" parent="." unique_id=1227711412]
 custom_minimum_size = Vector2(640, 512)
 layout_mode = 1
 anchors_preset = 15
@@ -31,9 +66,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_nvj33")
 expand_mode = 1
-stretch_mode = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="BackgroundRect"]
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundRect" unique_id=2059247799]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,270 +79,70 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundRect/MarginContainer" unique_id=957824712]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 48
 
-[node name="Title" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer"]
+[node name="Title" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer" unique_id=1823964971]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(411, 120)
+custom_minimum_size = Vector2(822, 240)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource("4_0el08")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="VBoxContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="StartButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer" unique_id=266843881]
 visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 16
+texture = ExtResource("5_0el08")
+
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/StartButton" unique_id=208147427]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_0w6la")
+theme_override_font_sizes/font_size = 36
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer" unique_id=2030572459]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
+script = SubResource("GDScript_ut5s6")
 
-[node name="OnePlayerButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_ut5s6")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/OnePlayerButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-text = "1p"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TwoPlayerButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("6_7824y")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/TwoPlayerButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-text = "2p"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer2" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 4
-alignment = 1
-
-[node name="OnePlayerMode" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(192, 34)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_0el08")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/OnePlayerMode"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 16
-text = "1 SPELER"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TwoPlayerMode" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
-unique_name_in_owner = true
-visible = false
-texture_filter = 1
-custom_minimum_size = Vector2(160, 34)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_0el08")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/TwoPlayerMode"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 16
-text = "2 SPELER"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HighscoresButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(192, 34)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_0el08")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/HighscoresButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 16
-text = "Highscores"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="OptionsButton" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(192, 34)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_0el08")
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/VBoxContainer/OptionsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 16
-text = "opties"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundRect/MarginContainer"]
-custom_minimum_size = Vector2(336, 72)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_constants/separation = 0
-
-[node name="InfoContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-alignment = 1
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
+[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/InfoContainer" unique_id=1756337207]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 12
-text = "BEWEEG"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("8_1dtxe")
-stretch_mode = 3
-
-[node name="Label2" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/InfoContainer"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 12
-text = "OM TE SELECTEREN"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="InfoLabel" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
-visible = false
-custom_minimum_size = Vector2(336, 32)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 12
-text = "MOVE JOYSTICK TO SELECT MODE"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundRect/MarginContainer/VBoxContainer2"]
-layout_mode = 2
 size_flags_horizontal = 4
-alignment = 1
-
-[node name="Label" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
 theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "DRUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="ButtonTextureRect" parent="BackgroundRect/MarginContainer/VBoxContainer/InfoContainer" unique_id=161554588 instance=ExtResource("6_4y736")]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("8_7824y")
-stretch_mode = 3
 
-[node name="Label2" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="Label2" type="Label" parent="BackgroundRect/MarginContainer/VBoxContainer/InfoContainer" unique_id=1235700731]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_horizontal = 4
 theme = ExtResource("1_0w6la")
-theme_override_font_sizes/font_size = 12
-text = "OM TE BEVESTIGEN"
+theme_override_font_sizes/font_size = 24
+text = "OM TE STARTEN"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VersionLabel" type="Label" parent="BackgroundRect/MarginContainer"]
-custom_minimum_size = Vector2(32, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 12
-text = "V0.9.0"
