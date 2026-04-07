@@ -19,6 +19,7 @@ var transition_in_progress := false
 var elapsed := 0.0
 var can_transition := false
 var name_selection_complete := false  # Prevent multiple saves
+var pause_time_remaining := 0.0  # Timer pause when input is given
 
 var rows: Array = []        # holds each VBoxContainer row (tex1, label, tex2)
 var current_index := 0      # which character slot we're editing
@@ -26,6 +27,7 @@ var char_index := 0         # current letter in alphabet for this slot
 var is_high_score := false
 var min_display_time: float = 1.0     # seconds
 var max_display_time: float = GameManager.end_time    # seconds
+var input_pause_duration := 5.0  # Pause timer for 5 seconds on input
 
 func _ready():
 	elapsed = 0.0
@@ -67,7 +69,14 @@ func _ready():
 
 
 func _process(delta):
-	elapsed += delta
+	# Handle timer pause on input
+	if pause_time_remaining > 0:
+		pause_time_remaining -= delta
+		if pause_time_remaining < 0:
+			pause_time_remaining = 0
+	else:
+		# Only increment elapsed time when not paused
+		elapsed += delta
 
 	var remaining = max(max_display_time - elapsed, 0)
 	if timer_label:
@@ -94,14 +103,17 @@ func _process(delta):
 
 	# Name entry controls (for all players)
 	if Input.is_action_just_pressed("phishing_up"):
+		pause_time_remaining = input_pause_duration
 		char_index = (char_index + 1) % alphabet.length()
 		_update_current_label()
 	elif Input.is_action_just_pressed("phishing_down"):
+		pause_time_remaining = input_pause_duration
 		char_index = (char_index - 1 + alphabet.length()) % alphabet.length()
 		_update_current_label()
 
 	# Allow moving left/right between slots
 	elif Input.is_action_just_pressed("phishing_left"):
+		pause_time_remaining = input_pause_duration
 		if current_index > 0:
 			# Save current letter and mark as locked in (green)
 			rows[current_index]["label"].text = alphabet[char_index]
@@ -117,6 +129,7 @@ func _process(delta):
 			char_index = max(alphabet.find(prev_letter), 0)
 			_update_current_label()
 	elif Input.is_action_just_pressed("phishing_right"):
+		pause_time_remaining = input_pause_duration
 		if current_index < rows.size() - 1:
 			# Save current letter and mark as locked in (green)
 			rows[current_index]["label"].text = alphabet[char_index]
@@ -133,6 +146,7 @@ func _process(delta):
 			_update_current_label()
 
 	if Input.is_action_just_pressed("phishing_confirm"):
+		pause_time_remaining = input_pause_duration
 		# Check if we're at the last position
 		if current_index >= rows.size() - 1:
 			# At last position, save and finish

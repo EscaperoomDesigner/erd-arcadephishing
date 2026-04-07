@@ -48,7 +48,7 @@ theme_override_constants/separation = 16
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1591430545]
-custom_minimum_size = Vector2(430, 55.5)
+custom_minimum_size = Vector2(516, 66.6)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -65,7 +65,7 @@ theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 12
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "JE SCORE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -103,7 +103,7 @@ theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 12
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "VOER JE NAAM"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -113,6 +113,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1976372956]
@@ -120,7 +121,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Up1" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=549730617]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -129,13 +130,14 @@ texture = ExtResource("6_d82el")
 [node name="TextLabel1" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=933281690]
 custom_minimum_size = Vector2(52, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "x"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down1" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=459725235]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("7_4381y")
@@ -145,7 +147,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Up2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=941759824]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -154,13 +156,14 @@ texture = ExtResource("6_d82el")
 [node name="TextLabel2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=351863440]
 custom_minimum_size = Vector2(52, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "x"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=390330520]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("7_4381y")
@@ -170,7 +173,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Up3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1927872191]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -179,13 +182,14 @@ texture = ExtResource("6_d82el")
 [node name="TextLabel3" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=2058509705]
 custom_minimum_size = Vector2(52, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "x"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1817158952]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("7_4381y")
@@ -195,7 +199,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Up4" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=1391559910]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -204,13 +208,14 @@ texture = ExtResource("6_d82el")
 [node name="TextLabel4" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=1935256938]
 custom_minimum_size = Vector2(52, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "x"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down4" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=1904239653]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("7_4381y")
@@ -220,7 +225,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Up5" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5" unique_id=460278197]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -229,48 +234,48 @@ texture = ExtResource("6_d82el")
 [node name="TextLabel5" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5" unique_id=1001678315]
 custom_minimum_size = Vector2(52, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "x"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down5" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer5" unique_id=1049105460]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("7_4381y")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=7817066]
-custom_minimum_size = Vector2(240, 0)
+[node name="InfoContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1265594828]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InfoContainer" unique_id=1952487276]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-alignment = 1
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=312694974]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
 theme = ExtResource("1_snkly")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "DRUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonTextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=161554588 instance=ExtResource("7_d82el")]
-custom_minimum_size = Vector2(48, 48)
+[node name="ButtonTextureRect" parent="MarginContainer/VBoxContainer/InfoContainer" unique_id=161554588 instance=ExtResource("7_d82el")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1641121794]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/InfoContainer" unique_id=341306373]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_snkly")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "OM TE BEVESTIGEN"
 horizontal_alignment = 1
 vertical_alignment = 1

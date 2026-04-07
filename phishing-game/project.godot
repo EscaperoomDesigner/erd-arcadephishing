@@ -37,10 +37,12 @@ VersionDisplay="*res://globals/version_display.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=3
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/singleplayer_mode=false
+window/size/mode.debug=0
 
 [game]
 
