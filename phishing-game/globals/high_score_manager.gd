@@ -7,6 +7,7 @@ const MAX_HIGH_SCORES_DISPLAY = 10  # How many scores to show in displays
 # No limit on total scores saved - all scores will be kept
 
 var high_scores: Array[Dictionary] = []
+var last_added_entry: Dictionary = {}  # Set when add_high_score is called; used to highlight on the highscore screen
 
 func _ready():
 	load_high_scores()
@@ -76,6 +77,7 @@ func add_high_score(player_name: String, score: int) -> int:
 		"date": Time.get_datetime_string_from_system()
 	}
 	
+	last_added_entry = new_entry
 	high_scores.append(new_entry)
 	
 	# Sort by score (descending)

@@ -25,9 +25,9 @@ var rows: Array = []        # holds each VBoxContainer row (tex1, label, tex2)
 var current_index := 0      # which character slot we're editing
 var char_index := 0         # current letter in alphabet for this slot
 var is_high_score := false
-var min_display_time: float = 1.0     # seconds
+var min_display_time: float = 0.01     # seconds
 var max_display_time: float = GameManager.end_time    # seconds
-var input_pause_duration := 5.0  # Pause timer for 5 seconds on input
+var input_pause_duration := 3.0  # Pause timer for 5 seconds on input
 
 func _ready():
 	elapsed = 0.0
@@ -191,6 +191,7 @@ func _finish_name_selection():
 		return
 		
 	name_selection_complete = true
+	pause_time_remaining = 0.0  # Unfreeze elapsed so can_transition check doesn't stall
 	print("Name selection done!")
 	var chosen_name = ""
 	

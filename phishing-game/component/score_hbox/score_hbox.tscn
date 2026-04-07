@@ -9,11 +9,22 @@ theme = ExtResource("1_1ne06")
 alignment = 1
 script = ExtResource("1_qsmjn")
 
+[node name="RankLabel" type="Label" parent="." unique_id=597004003]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="NameLabel" type="Label" parent="." unique_id=1764342462]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 24)
 layout_mode = 2
 size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 28
 text = "NAMENAME"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -22,6 +33,7 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "|"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -30,6 +42,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -37,6 +50,7 @@ vertical_alignment = 1
 [node name="Label4" type="Label" parent="." unique_id=1345975177]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "|"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -46,6 +60,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 24)
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 28
 text = "2025-19-05"
 horizontal_alignment = 1
 vertical_alignment = 1
