@@ -94,7 +94,6 @@ phishing_down={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"
 2d/size/window_height_override=1024
 2d/size/window_width_override=1280
 2d/stretch/mode="canvas_items"
