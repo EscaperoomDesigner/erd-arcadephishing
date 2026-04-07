@@ -300,6 +300,50 @@ text = "set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GamesPlayedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1111111101]
+custom_minimum_size = Vector2(520, 24)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/GamesPlayedContainer" unique_id=1111111102]
+custom_minimum_size = Vector2(361, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "GESPEELDE SPELLEN"
+vertical_alignment = 1
+
+[node name="GamesPlayedCountLabel" type="Label" parent="MarginContainer/VBoxContainer/GamesPlayedContainer" unique_id=1111111103]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GamesPlayedResetButton" type="TextureRect" parent="MarginContainer/VBoxContainer/GamesPlayedContainer" unique_id=1111111104]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_3swr7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/GamesPlayedContainer/GamesPlayedResetButton" unique_id=1111111105]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "reset"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="ClearHighscoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2094530311]
 custom_minimum_size = Vector2(520, 24)
 layout_mode = 2

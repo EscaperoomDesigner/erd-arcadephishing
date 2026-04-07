@@ -8,6 +8,7 @@ var master_volume_level: int = 7
 var music_volume_level: int = 7
 var sfx_volume_level: int = 7
 var is_fullscreen: bool = false
+var games_played: int = 0
 
 signal settings_changed
 signal settings_loaded
@@ -42,7 +43,8 @@ func save_settings():
 		"master_volume": master_volume_level,
 		"music_volume": music_volume_level,
 		"sfx_volume": sfx_volume_level,
-		"is_fullscreen": is_fullscreen
+		"is_fullscreen": is_fullscreen,
+		"games_played": games_played
 	}
 	
 	save_file.store_string(JSON.stringify(save_data))
@@ -84,6 +86,8 @@ func load_settings():
 		sfx_volume_level = save_data["sfx_volume"]
 	if save_data.has("is_fullscreen"):
 		is_fullscreen = save_data["is_fullscreen"]
+	if save_data.has("games_played"):
+		games_played = save_data["games_played"]
 	
 	print("Settings loaded successfully - Master: ", master_volume_level, ", Music: ", music_volume_level, ", SFX: ", sfx_volume_level, ", Fullscreen: ", is_fullscreen)
 	
@@ -229,6 +233,17 @@ func set_fullscreen(fullscreen: bool):
 
 func get_fullscreen() -> bool:
 	return is_fullscreen
+
+func increment_games_played():
+	games_played += 1
+	save_settings()
+
+func reset_games_played():
+	games_played = 0
+	save_settings()
+
+func get_games_played() -> int:
+	return games_played
 
 func _apply_fullscreen():
 	if is_fullscreen:

@@ -76,9 +76,10 @@ func check_high_score() -> bool:
 func save_high_score():
 	if player_name.strip_edges().is_empty():
 		player_name = "ANONYMOUS"
-	
+
 	high_score_position = HighScoreManager.add_high_score(player_name, score)
 	is_new_high_score = true
+	SettingsManager.increment_games_played()
 	emit_signal("high_score_achieved", high_score_position)
 
 

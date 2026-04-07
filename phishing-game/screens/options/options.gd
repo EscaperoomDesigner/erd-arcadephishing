@@ -6,6 +6,8 @@ extends Control
 @onready var music_volume_plus: TextureRect = %MusicVolumePlus
 @onready var terug_button: TextureRect = %TerugButton
 @onready var highscore_reset_button: TextureRect = %HighscoreResetButton
+@onready var games_played_reset_button: TextureRect = %GamesPlayedResetButton
+@onready var games_played_count_label: Label = %GamesPlayedCountLabel
 @onready var master_volume_progress: ProgressBar = %MasterProgressBar
 @onready var music_volume_progress: ProgressBar = %MusicProgressBar
 @onready var sfx_progress_bar: ProgressBar = %SfxProgressBar
@@ -33,12 +35,13 @@ var waiting_for_crt := false         # Flag to wait until fade completes
 var scene_ready := false             # Prevent immediate input on scene load
 
 # Navigation state
-enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, SFX_VOLUME, HIGHSCORE_RESET, BACK }
+enum OptionRow { MASTER_VOLUME, MUSIC_VOLUME, SFX_VOLUME, GAMES_PLAYED_RESET, HIGHSCORE_RESET, BACK }
 var current_row: OptionRow = OptionRow.MASTER_VOLUME
 
 # Confirmation popup state
 var showing_confirmation := false
 var confirmation_selection := 0  # 0 = Nee, 1 = Ja
+var confirmation_target: OptionRow = OptionRow.HIGHSCORE_RESET
 
 # Volume levels (0-10) - loaded from SettingsManager
 var master_volume_level: int = 10
@@ -83,6 +86,9 @@ func _ready():
 	
 	_update_button_display()
 	
+	# Show current games played count
+	_update_games_played_label()
+
 	# Hide confirmation popup initially
 	if confirmation_popup:
 		confirmation_popup.visible = false
@@ -132,8 +138,10 @@ func _process(_delta):
 	if Input.is_action_just_pressed("phishing_confirm"):
 		SfxManager.play_ui_select()
 		match current_row:
+			OptionRow.GAMES_PLAYED_RESET:
+				_show_reset_confirmation(OptionRow.GAMES_PLAYED_RESET)
 			OptionRow.HIGHSCORE_RESET:
-				_show_highscore_reset_confirmation()
+				_show_reset_confirmation(OptionRow.HIGHSCORE_RESET)
 			OptionRow.BACK:
 				_go_back_to_start()
 
@@ -151,6 +159,9 @@ func _update_button_display():
 	match current_row:
 		OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME:
 			_highlight_volume_controls(current_row)
+		OptionRow.GAMES_PLAYED_RESET:
+			if games_played_reset_button:
+				games_played_reset_button.texture = terug_button_selected
 		OptionRow.HIGHSCORE_RESET:
 			if highscore_reset_button:
 				highscore_reset_button.texture = terug_button_selected
@@ -218,11 +229,16 @@ func _handle_confirmation_input():
 	elif Input.is_action_just_pressed("phishing_confirm"):
 		SfxManager.play_ui_select()
 		if confirmation_selection == 1:  # Ja selected
-			_reset_highscores()
+			match confirmation_target:
+				OptionRow.HIGHSCORE_RESET:
+					_reset_highscores()
+				OptionRow.GAMES_PLAYED_RESET:
+					_reset_games_played()
 		_hide_confirmation_popup()
 
 
-func _show_highscore_reset_confirmation():
+func _show_reset_confirmation(target: OptionRow):
+	confirmation_target = target
 	showing_confirmation = true
 	confirmation_selection = 0  # Default to "Nee"
 	if confirmation_popup:
@@ -257,12 +273,18 @@ func _update_confirmation_display():
 
 
 func _reset_highscores():
-	# Reset the highscores using HighScoreManager
 	if HighScoreManager:
 		HighScoreManager.clear_high_scores()
 		print("Highscores have been reset!")
-	else:
-		print("HighScoreManager not found!")
+
+func _reset_games_played():
+	SettingsManager.reset_games_played()
+	_update_games_played_label()
+	print("Games played counter reset!")
+
+func _update_games_played_label():
+	if games_played_count_label:
+		games_played_count_label.text = str(SettingsManager.get_games_played())
 
 
 func _go_back_to_start():
@@ -305,7 +327,7 @@ func _initialize_progress_bars():
 
 
 func _navigate_vertical(direction: int):
-	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
+	var options = [OptionRow.MASTER_VOLUME, OptionRow.MUSIC_VOLUME, OptionRow.SFX_VOLUME, OptionRow.GAMES_PLAYED_RESET, OptionRow.HIGHSCORE_RESET, OptionRow.BACK]
 	var current_index = options.find(current_row)
 	
 	if direction > 0:  # Down
@@ -344,6 +366,8 @@ func _reset_all_buttons():
 	music_volume_plus.texture = button_default
 	sfx_volume_minus.texture = button_default
 	sfx_volume_plus.texture = button_default
+	if games_played_reset_button:
+		games_played_reset_button.texture = terug_button_default
 	if highscore_reset_button:
 		highscore_reset_button.texture = terug_button_default
 	terug_button.texture = terug_button_default
