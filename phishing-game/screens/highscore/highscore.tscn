@@ -3,8 +3,8 @@
 [ext_resource type="Theme" uid="uid://bxmym73447kmx" path="res://resources/theme.tres" id="1_w4kqt"]
 [ext_resource type="Script" uid="uid://l4p37uelqctb" path="res://screens/highscore/highscore.gd" id="2_88nhi"]
 [ext_resource type="PackedScene" uid="uid://b7qqt3kh5t4p5" path="res://component/background.tscn" id="3_88nhi"]
+[ext_resource type="PackedScene" uid="uid://bbtlyulpo4yar" path="res://component/button_texture_rect.tscn" id="4_5xsqn"]
 [ext_resource type="Texture2D" uid="uid://c5v3k6ph0i38" path="res://assets/images/menu/button_selected.png" id="4_88nhi"]
-[ext_resource type="Texture2D" uid="uid://cd72fbwyplkom" path="res://assets/images/menu/default_button.png" id="5_5xsqn"]
 
 [node name="Highscore" type="Control" unique_id=601738500]
 layout_mode = 3
@@ -29,27 +29,29 @@ grow_vertical = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 32
 
-[node name="ScoresVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1832524419]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(600, 640)
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="MarginContainer/ScoresVBox" unique_id=298763894]
+[node name="Label" type="Label" parent="MarginContainer" unique_id=298763894]
 custom_minimum_size = Vector2(72, 40)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0.803922, 0.541176, 1)
 theme_override_colors/font_shadow_color = Color(0.439216, 0, 0.439216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 12
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "HIGHSCORES"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScoresVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1832524419]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 540)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="InfoContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1696107931]
 unique_name_in_owner = true
@@ -62,24 +64,23 @@ alignment = 1
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 theme = ExtResource("1_w4kqt")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "DRUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoContainer" unique_id=782959021]
-custom_minimum_size = Vector2(48, 48)
+[node name="ButtonTextureRect" parent="MarginContainer/InfoContainer" unique_id=161554588 instance=ExtResource("4_5xsqn")]
 layout_mode = 2
-texture = ExtResource("5_5xsqn")
-expand_mode = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/InfoContainer" unique_id=1717346452]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 theme = ExtResource("1_w4kqt")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "OM NAAR START SCHERM TE GAAN"
 horizontal_alignment = 1
 vertical_alignment = 1
