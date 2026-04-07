@@ -216,11 +216,11 @@ func _load_settings_from_manager():
 
 func _handle_confirmation_input():
 	# Horizontal navigation in confirmation popup (LEFT/RIGHT)
-	if Input.is_action_just_pressed("phishing_rightt"):  # LEFT - select "Ja"
+	if Input.is_action_just_pressed("phishing_left"):  # LEFT - select "Ja"
 		confirmation_selection = 1
 		_update_confirmation_display()
 		SfxManager.play_ui_hover()
-	elif Input.is_action_just_pressed("phishing_left"):  # RIGHT - select "Nee"
+	elif Input.is_action_just_pressed("phishing_right"):  # RIGHT - select "Nee"
 		confirmation_selection = 0
 		_update_confirmation_display()
 		SfxManager.play_ui_hover()
