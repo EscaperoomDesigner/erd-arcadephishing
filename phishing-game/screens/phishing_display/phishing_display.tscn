@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bbmj5cnktr7il" path="res://assets/images/game/brdr.png" id="1_iod7u"]
 [ext_resource type="Script" uid="uid://c75a5yp2jruyq" path="res://screens/phishing_display/phishing_display.gd" id="2_0887g"]
-[ext_resource type="Texture2D" uid="uid://cio125bv6if2g" path="res://assets/phishing/good/15.png" id="3_1k4i0"]
+[ext_resource type="Texture2D" uid="uid://cio125bv6if2g" path="res://assets/phishingold/good/15.png" id="3_1k4i0"]
 
 [node name="PhishingDisplay" type="TextureRect" unique_id=376671392]
 custom_minimum_size = Vector2(1000, 600)

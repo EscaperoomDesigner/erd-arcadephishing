@@ -248,6 +248,8 @@ func get_games_played() -> int:
 func _apply_fullscreen():
 	if is_fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	print("Fullscreen mode: ", is_fullscreen)
