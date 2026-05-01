@@ -14,9 +14,11 @@ signal settings_changed
 signal settings_loaded
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
 	# Debug: Print available audio buses
 	_debug_print_audio_buses()
-	
+
 	load_settings()
 	# Emit signal after settings are loaded
 	call_deferred("_emit_loaded_signal")
@@ -248,8 +250,6 @@ func get_games_played() -> int:
 func _apply_fullscreen():
 	if is_fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	print("Fullscreen mode: ", is_fullscreen)
