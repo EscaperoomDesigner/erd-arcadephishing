@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://b7qqt3kh5t4p5" path="res://component/background.tscn" id="3_88nhi"]
 [ext_resource type="PackedScene" uid="uid://bbtlyulpo4yar" path="res://component/button_texture_rect.tscn" id="4_5xsqn"]
 [ext_resource type="Texture2D" uid="uid://c5v3k6ph0i38" path="res://assets/images/menu/button_selected.png" id="4_88nhi"]
-[ext_resource type="PackedScene" uid="uid://exi3v4xowh7d" path="res://component/score_hbox/score_hbox.tscn" id="4_e6yeo"]
 
 [sub_resource type="GDScript" id="GDScript_5xsqn"]
 script/source = "extends HBoxContainer
@@ -97,53 +96,8 @@ vertical_scroll_mode = 3
 [node name="ScoresVBox" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=1832524419]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 0
-
-[node name="ScoreHBox" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=659150901 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox2" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=80940794 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox3" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=1698622316 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox4" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=123456111 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox5" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=679900489 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox6" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=786650864 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox7" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=413255477 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox8" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=128584353 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox9" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=1844741566 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox10" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=469628907 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox11" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=362072322 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox12" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=101436572 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox13" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=471065208 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox14" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=119513761 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
-
-[node name="ScoreHBox15" parent="MarginContainer/ScrollContainer/ScoresVBox" unique_id=2088323907 instance=ExtResource("4_e6yeo")]
-layout_mode = 2
 
 [node name="InfoContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1940372773]
 unique_name_in_owner = true
